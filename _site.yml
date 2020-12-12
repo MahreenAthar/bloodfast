@@ -1,0 +1,19 @@
+name: "BP-website"
+output_dir: docs
+navbar:
+  title: "Blood Pressure Project"
+  left:
+    - text: "Statement"
+      href: statement.html
+  right:
+  - icon: fa-github
+    href: https://github.com/MahreenAthar/BloodPressureDataAnalysis
+  - icon: fa-envelope-square
+    href: mailto:mahreenathar.oct10@gmail.com
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    toc: yes
+    toc_float:
+      collapsed: no
