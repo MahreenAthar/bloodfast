@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Cleaning</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Blood Pressure Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="statement.html">Statement</a>
+</li>
+<li>
+  <a href="DataCleaning.html">Data Cleaning</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/MahreenAthar/BloodPressureDataAnalysis">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="mailto:mahreenathar.oct10@gmail.com">
+    <span class="fa fa-envelope-square"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Cleaning</h1>
+
+</div>
+
+
+<pre class="python"><code>import pandas as pd
+import numpy as np
+import dtale as dt</code></pre>
+<pre class="python"><code>bp_org = pd.read_csv(&quot;Blood_Pressure_data.csv&quot;, na_values = &quot;?&quot;)</code></pre>
+<pre><code>## sys:1: DtypeWarning:
+## 
+## Columns (10) have mixed types.Specify dtype option on import or set low_memory=False.</code></pre>
+<pre class="python"><code>bp_org.head(10)</code></pre>
+<pre><code>##         id  patient_no             cast  ... change  Med label
+## 0  2278392     8222157        Caucasian  ...     No   No    NO
+## 1   149190    55629189        Caucasian  ...     Ch  Yes    &gt;5
+## 2    64410    86047875  AfricanAmerican  ...     No  Yes    NO
+## 3   500364    82442376        Caucasian  ...     Ch  Yes    NO
+## 4    16680    42519267        Caucasian  ...     Ch  Yes    NO
+## 5    35754    82637451        Caucasian  ...     No  Yes    &gt;5
+## 6    55842    84259809        Caucasian  ...     Ch  Yes    NO
+## 7    63768   114882984        Caucasian  ...     No  Yes    &gt;5
+## 8    12522    48330783        Caucasian  ...     Ch  Yes    NO
+## 9    15738    63555939        Caucasian  ...     Ch  Yes    NO
+## 
+## [10 rows x 50 columns]</code></pre>
+<pre class="python"><code>bp_org.dtypes</code></pre>
+<pre><code>## id                           int64
+## patient_no                   int64
+## cast                        object
+## gender                      object
+## age group                   object
+## weight                      object
+## admission_typeid             int64
+## discharge_disposition_id     int64
+## admission_source_id          int64
+## time_in_hospital             int64
+## payer_code                  object
+## medical_specialty           object
+## num_lab_procedures           int64
+## num_procedures               int64
+## num_medications              int64
+## number_outpatient            int64
+## number_emergency             int64
+## number_inpatient             int64
+## diag_1                      object
+## diag_2                      object
+## diag_3                      object
+## number_diagnoses             int64
+## max_glu_serum               object
+## A1Cresult                   object
+## metformin                   object
+## repaglinide                 object
+## nateglinide                 object
+## chlorpropamide              object
+## glimepiride                 object
+## acetohexamide               object
+## glipizide                   object
+## glyburide                   object
+## tolbutamide                 object
+## pioglitazone                object
+## rosiglitazone               object
+## acarbose                    object
+## miglitol                    object
+## troglitazone                object
+## tolazamide                  object
+## examide                     object
+## citoglipton                 object
+## insulin                     object
+## glyburide-metformin         object
+## glipizide-metformin         object
+## glimepiride-pioglitazone    object
+## metformin-rosiglitazone     object
+## metformin-pioglitazone      object
+## change                      object
+## Med                         object
+## label                       object
+## dtype: object</code></pre>
+<pre class="python"><code>bp_org.nunique()</code></pre>
+<pre><code>## id                          101766
+## patient_no                   71518
+## cast                             5
+## gender                           3
+## age group                       10
+## weight                           9
+## admission_typeid                 8
+## discharge_disposition_id        26
+## admission_source_id             17
+## time_in_hospital                14
+## payer_code                      17
+## medical_specialty               72
+## num_lab_procedures             118
+## num_procedures                   7
+## num_medications                 75
+## number_outpatient               39
+## number_emergency                33
+## number_inpatient                21
+## diag_1                         716
+## diag_2                         748
+## diag_3                         789
+## number_diagnoses                16
+## max_glu_serum                    4
+## A1Cresult                        4
+## metformin                        4
+## repaglinide                      4
+## nateglinide                      4
+## chlorpropamide                   4
+## glimepiride                      4
+## acetohexamide                    2
+## glipizide                        4
+## glyburide                        4
+## tolbutamide                      2
+## pioglitazone                     4
+## rosiglitazone                    4
+## acarbose                         4
+## miglitol                         4
+## troglitazone                     2
+## tolazamide                       3
+## examide                          1
+## citoglipton                      1
+## insulin                          4
+## glyburide-metformin              4
+## glipizide-metformin              2
+## glimepiride-pioglitazone         2
+## metformin-rosiglitazone          2
+## metformin-pioglitazone           2
+## change                           2
+## Med                              2
+## label                            3
+## dtype: int64</code></pre>
+<pre class="python"><code>bp = bp_org
+#Type conversions
+bp[&#39;cast&#39;] = bp[&#39;cast&#39;].astype(&#39;category&#39;)
+bp[&#39;gender&#39;] = bp[&#39;gender&#39;].astype(&#39;category&#39;)
+bp[&#39;age group&#39;] = bp[&#39;age group&#39;].astype(&#39;category&#39;)
+bp[&#39;diag_1&#39;] = bp[&#39;diag_1&#39;].astype(&#39;category&#39;)
+bp[&#39;diag_2&#39;] = bp[&#39;diag_2&#39;].astype(&#39;category&#39;)
+bp[&#39;diag_3&#39;] = bp[&#39;diag_3&#39;].astype(&#39;category&#39;)
+bp[&#39;max_glu_serum&#39;] = bp[&#39;max_glu_serum&#39;].astype(&#39;category&#39;)
+bp[&#39;A1Cresult&#39;] = bp[&#39;A1Cresult&#39;].astype(&#39;category&#39;)
+bp[&#39;glimepiride&#39;] = bp[&#39;glimepiride&#39;].astype(&#39;category&#39;)
+bp[&#39;pioglitazone&#39;] = bp[&#39;pioglitazone&#39;].astype(&#39;category&#39;)
+bp[&#39;rosiglitazone&#39;] = bp[&#39;rosiglitazone&#39;].astype(&#39;category&#39;)
+bp[&#39;insulin&#39;] = bp[&#39;insulin&#39;].astype(&#39;category&#39;)
+bp[&#39;glyburide-metformin&#39;] = bp[&#39;glyburide-metformin&#39;].astype(&#39;category&#39;)
+bp[&#39;change&#39;] = bp[&#39;change&#39;].astype(&#39;category&#39;)
+bp[&#39;Med&#39;] = bp[&#39;Med&#39;].astype(&#39;category&#39;)
+bp[&#39;label&#39;] = bp[&#39;label&#39;].astype(&#39;category&#39;)</code></pre>
+<pre class="python"><code>bp.dtypes</code></pre>
+<pre><code>## id                             int64
+## patient_no                     int64
+## cast                        category
+## gender                      category
+## age group                   category
+## weight                        object
+## admission_typeid               int64
+## discharge_disposition_id       int64
+## admission_source_id            int64
+## time_in_hospital               int64
+## payer_code                    object
+## medical_specialty             object
+## num_lab_procedures             int64
+## num_procedures                 int64
+## num_medications                int64
+## number_outpatient              int64
+## number_emergency               int64
+## number_inpatient               int64
+## diag_1                      category
+## diag_2                      category
+## diag_3                      category
+## number_diagnoses               int64
+## max_glu_serum               category
+## A1Cresult                   category
+## metformin                     object
+## repaglinide                   object
+## nateglinide                   object
+## chlorpropamide                object
+## glimepiride                 category
+## acetohexamide                 object
+## glipizide                     object
+## glyburide                     object
+## tolbutamide                   object
+## pioglitazone                category
+## rosiglitazone               category
+## acarbose                      object
+## miglitol                      object
+## troglitazone                  object
+## tolazamide                    object
+## examide                       object
+## citoglipton                   object
+## insulin                     category
+## glyburide-metformin         category
+## glipizide-metformin           object
+## glimepiride-pioglitazone      object
+## metformin-rosiglitazone       object
+## metformin-pioglitazone        object
+## change                      category
+## Med                         category
+## label                       category
+## dtype: object</code></pre>
+<pre class="python"><code>#Deleting useless columns
+cols_to_delete = [&#39;id&#39;, &#39;weight&#39;, &#39;discharge_disposition_id&#39;, &#39;admission_source_id&#39;, &#39;patient_no&#39;, &#39;admission_typeid&#39;,&#39;payer_code&#39;, &#39;medical_specialty&#39;, &#39;examide&#39;, &#39;citoglipton&#39;, &#39;repaglinide&#39;, &#39;nateglinide&#39;, &#39;chlorpropamide&#39;, &#39;acetohexamide&#39;, &#39;tolbutamide&#39;, &#39;acarbose&#39;, &#39;miglitol&#39;, &#39;troglitazone&#39;, &#39;tolazamide&#39;, &#39;glyburide&#39;, &#39;glipizide&#39;, &#39;glimepiride-pioglitazone&#39;, &#39;metformin&#39;, &#39;metformin-pioglitazone&#39;, &#39;metformin-rosiglitazone&#39;, &#39;glipizide-metformin&#39;,&#39;diag_1&#39;, &#39;diag_2&#39;, &#39;diag_3&#39;]
+
+bp = bp_org.drop(cols_to_delete, axis=1, inplace=False)
+
+bp.columns</code></pre>
+<pre><code>## Index([&#39;cast&#39;, &#39;gender&#39;, &#39;age group&#39;, &#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;,
+##        &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;,
+##        &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;,
+##        &#39;max_glu_serum&#39;, &#39;A1Cresult&#39;, &#39;glimepiride&#39;, &#39;pioglitazone&#39;,
+##        &#39;rosiglitazone&#39;, &#39;insulin&#39;, &#39;glyburide-metformin&#39;, &#39;change&#39;, &#39;Med&#39;,
+##        &#39;label&#39;],
+##       dtype=&#39;object&#39;)</code></pre>
+<pre class="python"><code>bp.dtypes</code></pre>
+<pre><code>## cast                   category
+## gender                 category
+## age group              category
+## time_in_hospital          int64
+## num_lab_procedures        int64
+## num_procedures            int64
+## num_medications           int64
+## number_outpatient         int64
+## number_emergency          int64
+## number_inpatient          int64
+## number_diagnoses          int64
+## max_glu_serum          category
+## A1Cresult              category
+## glimepiride            category
+## pioglitazone           category
+## rosiglitazone          category
+## insulin                category
+## glyburide-metformin    category
+## change                 category
+## Med                    category
+## label                  category
+## dtype: object</code></pre>
+<pre class="python"><code>bp.info()</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 101766 entries, 0 to 101765
+## Data columns (total 21 columns):
+##  #   Column               Non-Null Count   Dtype   
+## ---  ------               --------------   -----   
+##  0   cast                 99493 non-null   category
+##  1   gender               101766 non-null  category
+##  2   age group            101766 non-null  category
+##  3   time_in_hospital     101766 non-null  int64   
+##  4   num_lab_procedures   101766 non-null  int64   
+##  5   num_procedures       101766 non-null  int64   
+##  6   num_medications      101766 non-null  int64   
+##  7   number_outpatient    101766 non-null  int64   
+##  8   number_emergency     101766 non-null  int64   
+##  9   number_inpatient     101766 non-null  int64   
+##  10  number_diagnoses     101766 non-null  int64   
+##  11  max_glu_serum        101766 non-null  category
+##  12  A1Cresult            101766 non-null  category
+##  13  glimepiride          101766 non-null  category
+##  14  pioglitazone         101766 non-null  category
+##  15  rosiglitazone        101766 non-null  category
+##  16  insulin              101766 non-null  category
+##  17  glyburide-metformin  101766 non-null  category
+##  18  change               101766 non-null  category
+##  19  Med                  101766 non-null  category
+##  20  label                101766 non-null  category
+## dtypes: category(13), int64(8)
+## memory usage: 7.5 MB</code></pre>
+<pre class="python"><code>#Factors ‘&gt;5’ and ‘&lt;30’ have been lumped together in new category named ‘YES’.
+label_changed = {&quot;label&quot;: {&quot;&gt;5&quot;: &quot;YES&quot;, &quot;&lt;30&quot;: &quot;YES&quot;}}
+bp = bp.replace(label_changed)
+#bp[&#39;label&#39;].str[0].str.upper().map({&#39;&gt;5&#39;:&#39;YES&#39;, &#39;&lt;30&#39;:&#39;YES&#39;})
+
+bp.head(10)</code></pre>
+<pre><code>##               cast  gender age group  ...  change  Med  label
+## 0        Caucasian  Female    [0-10)  ...      No   No     NO
+## 1        Caucasian  Female   [10-20)  ...      Ch  Yes    YES
+## 2  AfricanAmerican  Female   [20-30)  ...      No  Yes     NO
+## 3        Caucasian    Male   [30-40)  ...      Ch  Yes     NO
+## 4        Caucasian    Male   [40-50)  ...      Ch  Yes     NO
+## 5        Caucasian    Male   [50-60)  ...      No  Yes    YES
+## 6        Caucasian    Male   [60-70)  ...      Ch  Yes     NO
+## 7        Caucasian    Male   [70-80)  ...      No  Yes    YES
+## 8        Caucasian  Female   [80-90)  ...      Ch  Yes     NO
+## 9        Caucasian  Female  [90-100)  ...      Ch  Yes     NO
+## 
+## [10 rows x 21 columns]</code></pre>
+<p>Frequency Counts of the column “label”</p>
+<pre class="python"><code>print(bp[&#39;label&#39;].value_counts())</code></pre>
+<pre><code>## NO     54864
+## YES    46902
+## Name: label, dtype: int64</code></pre>
+<p>Shape of the original Data:</p>
+<pre class="python"><code>print(bp_org.shape)</code></pre>
+<pre><code>## (101766, 50)</code></pre>
+<p>Shape of the cleaned Data:</p>
+<pre class="python"><code>print(bp.shape)</code></pre>
+<pre><code>## (101766, 21)</code></pre>
+<p>Null values count:</p>
+<pre class="python"><code>print(&quot;Null values count: &quot;, bp[&#39;label&#39;].isna().sum())</code></pre>
+<pre><code>## Null values count:  0</code></pre>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
