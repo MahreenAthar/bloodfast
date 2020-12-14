@@ -5,6 +5,8 @@ navbar:
   left:
     - text: "Statement"
       href: statement.html
+    - text: "Data Cleaning"
+      href: DataCleaning.html
   right:
   - icon: fa-github
     href: https://github.com/MahreenAthar/BloodPressureDataAnalysis

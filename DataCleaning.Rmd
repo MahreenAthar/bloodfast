@@ -1,0 +1,94 @@
+---
+title: "Cleaning"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(reticulate)
+```
+
+```{python}
+import pandas as pd
+import numpy as np
+import dtale as dt
+```
+
+```{python}
+bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
+bp_org.head(10)
+```
+
+```{python}
+bp_org.dtypes
+bp_org.nunique()
+```
+
+```{python}
+bp = bp_org
+#Type conversions
+bp['cast'] = bp['cast'].astype('category')
+bp['gender'] = bp['gender'].astype('category')
+bp['age group'] = bp['age group'].astype('category')
+bp['diag_1'] = bp['diag_1'].astype('category')
+bp['diag_2'] = bp['diag_2'].astype('category')
+bp['diag_3'] = bp['diag_3'].astype('category')
+bp['max_glu_serum'] = bp['max_glu_serum'].astype('category')
+bp['A1Cresult'] = bp['A1Cresult'].astype('category')
+bp['glimepiride'] = bp['glimepiride'].astype('category')
+bp['pioglitazone'] = bp['pioglitazone'].astype('category')
+bp['rosiglitazone'] = bp['rosiglitazone'].astype('category')
+bp['insulin'] = bp['insulin'].astype('category')
+bp['glyburide-metformin'] = bp['glyburide-metformin'].astype('category')
+bp['change'] = bp['change'].astype('category')
+bp['Med'] = bp['Med'].astype('category')
+bp['label'] = bp['label'].astype('category')
+```
+
+```{python}
+bp.dtypes
+```
+
+```{python}
+#Deleting useless columns
+cols_to_delete = ['id', 'weight', 'discharge_disposition_id', 'admission_source_id', 'patient_no', 'admission_typeid','payer_code', 'medical_specialty', 'examide', 'citoglipton', 'repaglinide', 'nateglinide', 'chlorpropamide', 'acetohexamide', 'tolbutamide', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'glyburide', 'glipizide', 'glimepiride-pioglitazone', 'metformin', 'metformin-pioglitazone', 'metformin-rosiglitazone', 'glipizide-metformin','diag_1', 'diag_2', 'diag_3']
+
+bp = bp_org.drop(cols_to_delete, axis=1, inplace=False)
+
+bp.columns
+```
+
+```{python}
+bp.dtypes
+bp.info()
+```
+```{python}
+#Factors ‘>5’ and ‘<30’ have been lumped together in new category named ‘YES’.
+label_changed = {"label": {">5": "YES", "<30": "YES"}}
+bp = bp.replace(label_changed)
+#bp['label'].str[0].str.upper().map({'>5':'YES', '<30':'YES'})
+
+bp.head(10)
+```
+
+Frequency Counts of the column “label”
+```{python}
+print(bp['label'].value_counts())
+```
+
+Shape of the original Data:
+```{python}
+print(bp_org.shape)
+```
+
+Shape of the cleaned Data:
+```{python}
+print(bp.shape)
+```
+
+Null values count:
+```{python}
+print("Null values count: ", bp['label'].isna().sum())
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
