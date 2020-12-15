@@ -400,14 +400,9 @@ div.tocify {
 </div>
 
 
-<pre class="python"><code>import pandas as pd
-import numpy as np
-import dtale as dt</code></pre>
-<pre class="python"><code>bp_org = pd.read_csv(&quot;Blood_Pressure_data.csv&quot;, na_values = &quot;?&quot;)</code></pre>
 <pre><code>## sys:1: DtypeWarning:
 ## 
 ## Columns (10) have mixed types.Specify dtype option on import or set low_memory=False.</code></pre>
-<pre class="python"><code>bp_org.head(10)</code></pre>
 <pre><code>##         id  patient_no             cast  ... change  Med label
 ## 0  2278392     8222157        Caucasian  ...     No   No    NO
 ## 1   149190    55629189        Caucasian  ...     Ch  Yes    &gt;5
@@ -421,7 +416,6 @@ import dtale as dt</code></pre>
 ## 9    15738    63555939        Caucasian  ...     Ch  Yes    NO
 ## 
 ## [10 rows x 50 columns]</code></pre>
-<pre class="python"><code>bp_org.dtypes</code></pre>
 <pre><code>## id                           int64
 ## patient_no                   int64
 ## cast                        object
@@ -473,7 +467,6 @@ import dtale as dt</code></pre>
 ## Med                         object
 ## label                       object
 ## dtype: object</code></pre>
-<pre class="python"><code>bp_org.nunique()</code></pre>
 <pre><code>## id                          101766
 ## patient_no                   71518
 ## cast                             5
@@ -525,25 +518,6 @@ import dtale as dt</code></pre>
 ## Med                              2
 ## label                            3
 ## dtype: int64</code></pre>
-<pre class="python"><code>bp = bp_org
-#Type conversions
-bp[&#39;cast&#39;] = bp[&#39;cast&#39;].astype(&#39;category&#39;)
-bp[&#39;gender&#39;] = bp[&#39;gender&#39;].astype(&#39;category&#39;)
-bp[&#39;age group&#39;] = bp[&#39;age group&#39;].astype(&#39;category&#39;)
-bp[&#39;diag_1&#39;] = bp[&#39;diag_1&#39;].astype(&#39;category&#39;)
-bp[&#39;diag_2&#39;] = bp[&#39;diag_2&#39;].astype(&#39;category&#39;)
-bp[&#39;diag_3&#39;] = bp[&#39;diag_3&#39;].astype(&#39;category&#39;)
-bp[&#39;max_glu_serum&#39;] = bp[&#39;max_glu_serum&#39;].astype(&#39;category&#39;)
-bp[&#39;A1Cresult&#39;] = bp[&#39;A1Cresult&#39;].astype(&#39;category&#39;)
-bp[&#39;glimepiride&#39;] = bp[&#39;glimepiride&#39;].astype(&#39;category&#39;)
-bp[&#39;pioglitazone&#39;] = bp[&#39;pioglitazone&#39;].astype(&#39;category&#39;)
-bp[&#39;rosiglitazone&#39;] = bp[&#39;rosiglitazone&#39;].astype(&#39;category&#39;)
-bp[&#39;insulin&#39;] = bp[&#39;insulin&#39;].astype(&#39;category&#39;)
-bp[&#39;glyburide-metformin&#39;] = bp[&#39;glyburide-metformin&#39;].astype(&#39;category&#39;)
-bp[&#39;change&#39;] = bp[&#39;change&#39;].astype(&#39;category&#39;)
-bp[&#39;Med&#39;] = bp[&#39;Med&#39;].astype(&#39;category&#39;)
-bp[&#39;label&#39;] = bp[&#39;label&#39;].astype(&#39;category&#39;)</code></pre>
-<pre class="python"><code>bp.dtypes</code></pre>
 <pre><code>## id                             int64
 ## patient_no                     int64
 ## cast                        category
@@ -595,12 +569,6 @@ bp[&#39;label&#39;] = bp[&#39;label&#39;].astype(&#39;category&#39;)</code></pre
 ## Med                         category
 ## label                       category
 ## dtype: object</code></pre>
-<pre class="python"><code>#Deleting useless columns
-cols_to_delete = [&#39;id&#39;, &#39;weight&#39;, &#39;discharge_disposition_id&#39;, &#39;admission_source_id&#39;, &#39;patient_no&#39;, &#39;admission_typeid&#39;,&#39;payer_code&#39;, &#39;medical_specialty&#39;, &#39;examide&#39;, &#39;citoglipton&#39;, &#39;repaglinide&#39;, &#39;nateglinide&#39;, &#39;chlorpropamide&#39;, &#39;acetohexamide&#39;, &#39;tolbutamide&#39;, &#39;acarbose&#39;, &#39;miglitol&#39;, &#39;troglitazone&#39;, &#39;tolazamide&#39;, &#39;glyburide&#39;, &#39;glipizide&#39;, &#39;glimepiride-pioglitazone&#39;, &#39;metformin&#39;, &#39;metformin-pioglitazone&#39;, &#39;metformin-rosiglitazone&#39;, &#39;glipizide-metformin&#39;,&#39;diag_1&#39;, &#39;diag_2&#39;, &#39;diag_3&#39;]
-
-bp = bp_org.drop(cols_to_delete, axis=1, inplace=False)
-
-bp.columns</code></pre>
 <pre><code>## Index([&#39;cast&#39;, &#39;gender&#39;, &#39;age group&#39;, &#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;,
 ##        &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;,
 ##        &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;,
@@ -608,7 +576,6 @@ bp.columns</code></pre>
 ##        &#39;rosiglitazone&#39;, &#39;insulin&#39;, &#39;glyburide-metformin&#39;, &#39;change&#39;, &#39;Med&#39;,
 ##        &#39;label&#39;],
 ##       dtype=&#39;object&#39;)</code></pre>
-<pre class="python"><code>bp.dtypes</code></pre>
 <pre><code>## cast                   category
 ## gender                 category
 ## age group              category
@@ -631,7 +598,6 @@ bp.columns</code></pre>
 ## Med                    category
 ## label                  category
 ## dtype: object</code></pre>
-<pre class="python"><code>bp.info()</code></pre>
 <pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 ## RangeIndex: 101766 entries, 0 to 101765
 ## Data columns (total 21 columns):
@@ -660,12 +626,6 @@ bp.columns</code></pre>
 ##  20  label                101766 non-null  category
 ## dtypes: category(13), int64(8)
 ## memory usage: 7.5 MB</code></pre>
-<pre class="python"><code>#Factors ‘&gt;5’ and ‘&lt;30’ have been lumped together in new category named ‘YES’.
-label_changed = {&quot;label&quot;: {&quot;&gt;5&quot;: &quot;YES&quot;, &quot;&lt;30&quot;: &quot;YES&quot;}}
-bp = bp.replace(label_changed)
-#bp[&#39;label&#39;].str[0].str.upper().map({&#39;&gt;5&#39;:&#39;YES&#39;, &#39;&lt;30&#39;:&#39;YES&#39;})
-
-bp.head(10)</code></pre>
 <pre><code>##               cast  gender age group  ...  change  Med  label
 ## 0        Caucasian  Female    [0-10)  ...      No   No     NO
 ## 1        Caucasian  Female   [10-20)  ...      Ch  Yes    YES
@@ -680,18 +640,14 @@ bp.head(10)</code></pre>
 ## 
 ## [10 rows x 21 columns]</code></pre>
 <p>Frequency Counts of the column “label”</p>
-<pre class="python"><code>print(bp[&#39;label&#39;].value_counts())</code></pre>
 <pre><code>## NO     54864
 ## YES    46902
 ## Name: label, dtype: int64</code></pre>
 <p>Shape of the original Data:</p>
-<pre class="python"><code>print(bp_org.shape)</code></pre>
 <pre><code>## (101766, 50)</code></pre>
 <p>Shape of the cleaned Data:</p>
-<pre class="python"><code>print(bp.shape)</code></pre>
 <pre><code>## (101766, 21)</code></pre>
 <p>Null values count:</p>
-<pre class="python"><code>print(&quot;Null values count: &quot;, bp[&#39;label&#39;].isna().sum())</code></pre>
 <pre><code>## Null values count:  0</code></pre>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 
