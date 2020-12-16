@@ -8,14 +8,18 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 ```
 
-```{python}
+```{python include=FALSE}
 import pandas as pd
 import numpy as np
 import dtale as dt
 ```
 
-```{python}
+```{python include=FALSE}
 bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
+```
+
+
+```{python}
 bp_org.head(10)
 ```
 
