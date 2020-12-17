@@ -5,7 +5,7 @@ output:
     includes:
       in_header: "favicon.html"
 ---
-
+<!-- /home/mahreen/Documents/bloodfast/leaf.png -->
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
