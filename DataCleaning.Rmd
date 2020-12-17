@@ -19,13 +19,18 @@ bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
 ```
 
 
+## Glimpse of the original Data set
+Here are the first 10 rows from the original(uncleaned) data set
+
 ```{python}
 bp_org.head(10)
 ```
 
+
+## Summary of original Data
+This is the information(summary) i.e. the uniques values and data types of each column in the original data.
 ```{python}
-bp_org.dtypes
-bp_org.nunique()
+bp_org.info()
 ```
 
 ```{python}
@@ -49,10 +54,20 @@ bp['Med'] = bp['Med'].astype('category')
 bp['label'] = bp['label'].astype('category')
 ```
 
+
+## Type conversions
+Here we have converted the data types of required columns to their appropriate types.
+You can compare these types with the summary provided above.
 ```{python}
 bp.dtypes
 ```
 
+
+## Deleting unneccesary columns
+Here we are deleting the columns that are unnecessary, useless or those that have no impact on the data.
+Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs.
+
+These are the deleted columns: 
 ```{python}
 #Deleting useless columns
 cols_to_delete = ['id', 'weight', 'discharge_disposition_id', 'admission_source_id', 'patient_no', 'admission_typeid','payer_code', 'medical_specialty', 'examide', 'citoglipton', 'repaglinide', 'nateglinide', 'chlorpropamide', 'acetohexamide', 'tolbutamide', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'glyburide', 'glipizide', 'glimepiride-pioglitazone', 'metformin', 'metformin-pioglitazone', 'metformin-rosiglitazone', 'glipizide-metformin','diag_1', 'diag_2', 'diag_3']
@@ -62,15 +77,24 @@ bp = bp_org.drop(cols_to_delete, axis=1, inplace=False)
 bp.columns
 ```
 
+
+## Cleaned Data Set
+Now a summary of the final version of the original data after it's cleaning phase can be seen here: 
 ```{python}
-bp.dtypes
 bp.info()
 ```
+After the cleaning phase we see that we are now down to 21 columns and the data set is now a lot cleaner and neater than it was at the start.
+
+
+## Labels modified
+In the original data set the "Label" column has three categories i.e. '<5', '>30' and 'NO'
+
+We have lumped the factors '<5' and '>30' in a new category names 'YES'.
+
+So now the "Label" column has two categories i.e. 'YES' and 'NO'
 ```{python}
-#Factors ‘>5’ and ‘<30’ have been lumped together in new category named ‘YES’.
 label_changed = {"label": {">5": "YES", "<30": "YES"}}
 bp = bp.replace(label_changed)
-#bp['label'].str[0].str.upper().map({'>5':'YES', '<30':'YES'})
 
 bp.head(10)
 ```
@@ -78,6 +102,11 @@ bp.head(10)
 Frequency Counts of the column “label”
 ```{python}
 print(bp['label'].value_counts())
+```
+
+Null values count of Label:
+```{python}
+print("Null values count: ", bp['label'].isna().sum())
 ```
 
 Shape of the original Data:
@@ -90,15 +119,8 @@ Shape of the cleaned Data:
 print(bp.shape)
 ```
 
-Null values count:
-```{python}
-print("Null values count: ", bp['label'].isna().sum())
-```
-
-```{python}
+```{python include=FALSE}
 # df.to_csv(index=False)
 bp.to_csv('/home/mahreen/Documents/bloodfast/bp.csv', index=False)
 ```
 
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -8,23 +8,35 @@ knitr::opts_chunk$set(echo = FALSE)
 library(reticulate)
 ```
 
-```{python}
+```{python include=FALSE}
 import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd
 ```
 
-```{python}
+```{python include=FALSE}
 bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
-bp_org.head()
+# bp_org.head()
 ```
 
+## Correlation matrix of original(uncleaned) Data set
+This is the correlation matrix of the original uncleaned data set, displayed using a heatmap.
 ```{python}
-# corrMatrix = df.corr()
-# sn.heatmap(corrMatrix, annot=True)
-# plt.show()
-corrMatrix = bp_org.corr()
-sn.heatmap(corrMatrix, annot=True)
+corrMatrix_org = bp_org.corr()
+fig, ax = plt.subplots(figsize=(15,15))
+sn.heatmap(corrMatrix_org, annot=True, linewidth=0.5, ax=ax)
 plt.show()
 ```
+```{python include=FALSE}
+bp = pd.read_csv("bp.csv", na_values = "?")
+```
 
+
+## Correlation matrix of final(cleaned) Data set
+This is the correlation matrix of the final cleaned data set, displayed using a heatmap.
+```{python}
+corrMatrix_final = bp.corr()
+fig, ax = plt.subplots(figsize=(12,12))
+sn.heatmap(corrMatrix_final, annot=True, linewidth=0.5, ax=ax)
+plt.show()
+```

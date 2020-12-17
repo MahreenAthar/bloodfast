@@ -1,7 +1,7 @@
 name: "BP-website"
 output_dir: docs
 navbar:
-  title: "Blood Pressure Project"
+  title: "Heart Attack Prediction"
   left:
     - text: "Statement"
       href: statement.html
@@ -11,9 +11,9 @@ navbar:
       href: Visualizations.html
   right:
   - icon: fa-github
-    href: https://github.com/MahreenAthar/BloodPressureDataAnalysis
-  - icon: fa-envelope-square
-    href: mailto:mahreenathar.oct10@gmail.com
+    href: https://github.com/MahreenAthar/bloodfast
+  # - icon: fa-envelope-square
+  #   href: mailto:mahreenathar.oct10@gmail.com
 output:
   html_document:
     theme: cosmo

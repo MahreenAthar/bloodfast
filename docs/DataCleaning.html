@@ -403,6 +403,9 @@ div.tocify {
 </div>
 
 
+<div id="glimpse-of-the-original-data-set" class="section level2">
+<h2>Glimpse of the original Data set</h2>
+<p>Here are the first 10 rows from the original(uncleaned) data set</p>
 <pre><code>##         id  patient_no             cast  ... change  Med label
 ## 0  2278392     8222157        Caucasian  ...     No   No    NO
 ## 1   149190    55629189        Caucasian  ...     Ch  Yes    &gt;5
@@ -416,108 +419,71 @@ div.tocify {
 ## 9    15738    63555939        Caucasian  ...     Ch  Yes    NO
 ## 
 ## [10 rows x 50 columns]</code></pre>
-<pre><code>## id                           int64
-## patient_no                   int64
-## cast                        object
-## gender                      object
-## age group                   object
-## weight                      object
-## admission_typeid             int64
-## discharge_disposition_id     int64
-## admission_source_id          int64
-## time_in_hospital             int64
-## payer_code                  object
-## medical_specialty           object
-## num_lab_procedures           int64
-## num_procedures               int64
-## num_medications              int64
-## number_outpatient            int64
-## number_emergency             int64
-## number_inpatient             int64
-## diag_1                      object
-## diag_2                      object
-## diag_3                      object
-## number_diagnoses             int64
-## max_glu_serum               object
-## A1Cresult                   object
-## metformin                   object
-## repaglinide                 object
-## nateglinide                 object
-## chlorpropamide              object
-## glimepiride                 object
-## acetohexamide               object
-## glipizide                   object
-## glyburide                   object
-## tolbutamide                 object
-## pioglitazone                object
-## rosiglitazone               object
-## acarbose                    object
-## miglitol                    object
-## troglitazone                object
-## tolazamide                  object
-## examide                     object
-## citoglipton                 object
-## insulin                     object
-## glyburide-metformin         object
-## glipizide-metformin         object
-## glimepiride-pioglitazone    object
-## metformin-rosiglitazone     object
-## metformin-pioglitazone      object
-## change                      object
-## Med                         object
-## label                       object
-## dtype: object</code></pre>
-<pre><code>## id                          101766
-## patient_no                   71518
-## cast                             5
-## gender                           3
-## age group                       10
-## weight                           9
-## admission_typeid                 8
-## discharge_disposition_id        26
-## admission_source_id             17
-## time_in_hospital                14
-## payer_code                      17
-## medical_specialty               72
-## num_lab_procedures             118
-## num_procedures                   7
-## num_medications                 75
-## number_outpatient               39
-## number_emergency                33
-## number_inpatient                21
-## diag_1                         716
-## diag_2                         748
-## diag_3                         789
-## number_diagnoses                16
-## max_glu_serum                    4
-## A1Cresult                        4
-## metformin                        4
-## repaglinide                      4
-## nateglinide                      4
-## chlorpropamide                   4
-## glimepiride                      4
-## acetohexamide                    2
-## glipizide                        4
-## glyburide                        4
-## tolbutamide                      2
-## pioglitazone                     4
-## rosiglitazone                    4
-## acarbose                         4
-## miglitol                         4
-## troglitazone                     2
-## tolazamide                       3
-## examide                          1
-## citoglipton                      1
-## insulin                          4
-## glyburide-metformin              4
-## glipizide-metformin              2
-## glimepiride-pioglitazone         2
-## metformin-rosiglitazone          2
-## metformin-pioglitazone           2
-## change                           2
-## Med                              2
-## label                            3
-## dtype: int64</code></pre>
+</div>
+<div id="summary-of-original-data" class="section level2">
+<h2>SUmmary of original Data</h2>
+<p>This is the information(summary) i.e. the uniques values and data types of each column in the original data.</p>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 101766 entries, 0 to 101765
+## Data columns (total 50 columns):
+##  #   Column                    Non-Null Count   Dtype 
+## ---  ------                    --------------   ----- 
+##  0   id                        101766 non-null  int64 
+##  1   patient_no                101766 non-null  int64 
+##  2   cast                      99493 non-null   object
+##  3   gender                    101766 non-null  object
+##  4   age group                 101766 non-null  object
+##  5   weight                    3197 non-null    object
+##  6   admission_typeid          101766 non-null  int64 
+##  7   discharge_disposition_id  101766 non-null  int64 
+##  8   admission_source_id       101766 non-null  int64 
+##  9   time_in_hospital          101766 non-null  int64 
+##  10  payer_code                61510 non-null   object
+##  11  medical_specialty         51817 non-null   object
+##  12  num_lab_procedures        101766 non-null  int64 
+##  13  num_procedures            101766 non-null  int64 
+##  14  num_medications           101766 non-null  int64 
+##  15  number_outpatient         101766 non-null  int64 
+##  16  number_emergency          101766 non-null  int64 
+##  17  number_inpatient          101766 non-null  int64 
+##  18  diag_1                    101745 non-null  object
+##  19  diag_2                    101408 non-null  object
+##  20  diag_3                    100343 non-null  object
+##  21  number_diagnoses          101766 non-null  int64 
+##  22  max_glu_serum             101766 non-null  object
+##  23  A1Cresult                 101766 non-null  object
+##  24  metformin                 101766 non-null  object
+##  25  repaglinide               101766 non-null  object
+##  26  nateglinide               101766 non-null  object
+##  27  chlorpropamide            101766 non-null  object
+##  28  glimepiride               101766 non-null  object
+##  29  acetohexamide             101766 non-null  object
+##  30  glipizide                 101766 non-null  object
+##  31  glyburide                 101766 non-null  object
+##  32  tolbutamide               101766 non-null  object
+##  33  pioglitazone              101766 non-null  object
+##  34  rosiglitazone             101766 non-null  object
+##  35  acarbose                  101766 non-null  object
+##  36  miglitol                  101766 non-null  object
+##  37  troglitazone              101766 non-null  object
+##  38  tolazamide                101766 non-null  object
+##  39  examide                   101766 non-null  object
+##  40  citoglipton               101766 non-null  object
+##  41  insulin                   101766 non-null  object
+##  42  glyburide-metformin       101766 non-null  object
+##  43  glipizide-metformin       101766 non-null  object
+##  44  glimepiride-pioglitazone  101766 non-null  object
+##  45  metformin-rosiglitazone   101766 non-null  object
+##  46  metformin-pioglitazone    101766 non-null  object
+##  47  change                    101766 non-null  object
+##  48  Med                       101766 non-null  object
+##  49  label                     101766 non-null  object
+## dtypes: int64(13), object(37)
+## memory usage: 38.8+ MB</code></pre>
+</div>
+<div id="type-conversions" class="section level2">
+<h2>Type conversions</h2>
+<p>Here we have converted the data types of required columns to their appropriate types. You can compare these types with the summary provided above.</p>
 <pre><code>## id                             int64
 ## patient_no                     int64
 ## cast                        category
@@ -569,6 +535,10 @@ div.tocify {
 ## Med                         category
 ## label                       category
 ## dtype: object</code></pre>
+</div>
+<div id="deleting-unneccesary-columns" class="section level2">
+<h2>Deleting unneccesary columns</h2>
+<p>Here we are deleting the columns that are unnecessary, useless or those that have no impact on the data. Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs. These are the deleted columns:</p>
 <pre><code>## Index([&#39;cast&#39;, &#39;gender&#39;, &#39;age group&#39;, &#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;,
 ##        &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;,
 ##        &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;,
@@ -576,28 +546,10 @@ div.tocify {
 ##        &#39;rosiglitazone&#39;, &#39;insulin&#39;, &#39;glyburide-metformin&#39;, &#39;change&#39;, &#39;Med&#39;,
 ##        &#39;label&#39;],
 ##       dtype=&#39;object&#39;)</code></pre>
-<pre><code>## cast                   category
-## gender                 category
-## age group              category
-## time_in_hospital          int64
-## num_lab_procedures        int64
-## num_procedures            int64
-## num_medications           int64
-## number_outpatient         int64
-## number_emergency          int64
-## number_inpatient          int64
-## number_diagnoses          int64
-## max_glu_serum          category
-## A1Cresult              category
-## glimepiride            category
-## pioglitazone           category
-## rosiglitazone          category
-## insulin                category
-## glyburide-metformin    category
-## change                 category
-## Med                    category
-## label                  category
-## dtype: object</code></pre>
+</div>
+<div id="cleaned-data-set" class="section level2">
+<h2>Cleaned Data Set</h2>
+<p>Now a summary of the final version of the original data after it’s cleaning phase can be seen here:</p>
 <pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 ## RangeIndex: 101766 entries, 0 to 101765
 ## Data columns (total 21 columns):
@@ -626,6 +578,10 @@ div.tocify {
 ##  20  label                101766 non-null  category
 ## dtypes: category(13), int64(8)
 ## memory usage: 7.5 MB</code></pre>
+</div>
+<div id="labels-modified" class="section level2">
+<h2>Labels modified</h2>
+<p>In the original data set the “Label” column has three categories i.e. ‘&lt;5’, ‘&gt;30’, ‘NO’ We have lumped the factors ‘&lt;5’ and ‘&gt;30’ in a new category names ‘YES’. So now the “Label” column has two categories i.e. ‘YES’ and ‘NO’</p>
 <pre><code>##               cast  gender age group  ...  change  Med  label
 ## 0        Caucasian  Female    [0-10)  ...      No   No     NO
 ## 1        Caucasian  Female   [10-20)  ...      Ch  Yes    YES
@@ -643,13 +599,14 @@ div.tocify {
 <pre><code>## NO     54864
 ## YES    46902
 ## Name: label, dtype: int64</code></pre>
+<p>Null values count of Label:</p>
+<pre><code>## Null values count:  0</code></pre>
 <p>Shape of the original Data:</p>
 <pre><code>## (101766, 50)</code></pre>
 <p>Shape of the cleaned Data:</p>
 <pre><code>## (101766, 21)</code></pre>
-<p>Null values count:</p>
-<pre><code>## Null values count:  0</code></pre>
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+</div>
 
 
 
