@@ -12,8 +12,8 @@ navbar:
   right:
   - icon: fa-github
     href: https://github.com/MahreenAthar/bloodfast
-  # - icon: fa-envelope-square
-  #   href: mailto:mahreenathar.oct10@gmail.com
+  - icon: fa-linkedin
+    href: https://www.linkedin.com/in/mahreen-athar-7666ma/
 output:
   html_document:
     theme: cosmo

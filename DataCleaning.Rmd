@@ -109,6 +109,8 @@ Null values count of Label:
 print("Null values count: ", bp['label'].isna().sum())
 ```
 
+
+## Data set shape comparison
 Shape of the original Data:
 ```{python}
 print(bp_org.shape)
