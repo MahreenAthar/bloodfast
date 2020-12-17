@@ -1,6 +1,10 @@
 ---
 title: "Statement"
-output: html_document
+# output: html_document
+output: 
+  html_document:
+    includes:
+      in_header: "statement_favicon.html"
 ---
 
 ```{r setup, include=FALSE}

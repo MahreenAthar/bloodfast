@@ -1,6 +1,10 @@
 ---
 title: "Home"
-output: html_document
+# output: html_document
+output: 
+  html_document:
+    includes:
+      in_header: "home_favicon.html"
 ---
 
 ```{r setup, include=FALSE}

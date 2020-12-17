@@ -1,6 +1,10 @@
 ---
 title: "Cleaning"
-output: html_document
+# output: html_document
+output: 
+  html_document:
+    includes:
+      in_header: "dataCleaning_favicon.html"
 ---
 
 ```{r setup, include=FALSE}
