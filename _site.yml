@@ -7,8 +7,8 @@ navbar:
       href: statement.html
     - text: "Data Cleaning"
       href: DataCleaning.html
-    # - text: "Visualization"
-    #   href: Visualization.html
+    - text: "Visualizations"
+      href: Visualizations.html
   right:
   - icon: fa-github
     href: https://github.com/MahreenAthar/BloodPressureDataAnalysis

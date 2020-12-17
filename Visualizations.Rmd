@@ -1,0 +1,30 @@
+---
+title: "Visualizations"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(reticulate)
+```
+
+```{python}
+import matplotlib.pyplot as plt
+import seaborn as sn
+import pandas as pd
+```
+
+```{python}
+bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
+bp_org.head()
+```
+
+```{python}
+# corrMatrix = df.corr()
+# sn.heatmap(corrMatrix, annot=True)
+# plt.show()
+corrMatrix = bp_org.corr()
+sn.heatmap(corrMatrix, annot=True)
+plt.show()
+```
+

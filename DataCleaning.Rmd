@@ -95,4 +95,10 @@ Null values count:
 print("Null values count: ", bp['label'].isna().sum())
 ```
 
+```{python}
+# df.to_csv(index=False)
+bp.to_csv('/home/mahreen/Documents/bloodfast/bp.csv', index=False)
+```
+
+
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
