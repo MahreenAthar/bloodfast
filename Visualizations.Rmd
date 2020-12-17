@@ -1,10 +1,9 @@
 ---
 title: "Visualizations"
-# output: html_document
 output: 
   html_document:
     includes:
-      in_header: "visualization_favicon.html"
+      in_header: "favicon.html"
 ---
 
 ```{r setup, include=FALSE}
