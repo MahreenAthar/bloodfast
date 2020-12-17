@@ -362,7 +362,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Blood Pressure Project</a>
+      <a class="navbar-brand" href="index.html">Heart Attack Prediction</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -378,14 +378,8 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/MahreenAthar/BloodPressureDataAnalysis">
+  <a href="https://github.com/MahreenAthar/bloodfast">
     <span class="fa fa-github"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="mailto:mahreenathar.oct10@gmail.com">
-    <span class="fa fa-envelope-square"></span>
      
   </a>
 </li>
@@ -421,7 +415,7 @@ div.tocify {
 ## [10 rows x 50 columns]</code></pre>
 </div>
 <div id="summary-of-original-data" class="section level2">
-<h2>SUmmary of original Data</h2>
+<h2>Summary of original Data</h2>
 <p>This is the information(summary) i.e. the uniques values and data types of each column in the original data.</p>
 <pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 ## RangeIndex: 101766 entries, 0 to 101765
@@ -538,7 +532,8 @@ div.tocify {
 </div>
 <div id="deleting-unneccesary-columns" class="section level2">
 <h2>Deleting unneccesary columns</h2>
-<p>Here we are deleting the columns that are unnecessary, useless or those that have no impact on the data. Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs. These are the deleted columns:</p>
+<p>Here we are deleting the columns that are unnecessary, useless or those that have no impact on the data. Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs.</p>
+<p>These are the deleted columns:</p>
 <pre><code>## Index([&#39;cast&#39;, &#39;gender&#39;, &#39;age group&#39;, &#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;,
 ##        &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;,
 ##        &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;,
@@ -578,10 +573,13 @@ div.tocify {
 ##  20  label                101766 non-null  category
 ## dtypes: category(13), int64(8)
 ## memory usage: 7.5 MB</code></pre>
+<p>After the cleaning phase we see that we are now down to 21 columns and the data set is now a lot cleaner and neater than it was at the start.</p>
 </div>
 <div id="labels-modified" class="section level2">
 <h2>Labels modified</h2>
-<p>In the original data set the “Label” column has three categories i.e. ‘&lt;5’, ‘&gt;30’, ‘NO’ We have lumped the factors ‘&lt;5’ and ‘&gt;30’ in a new category names ‘YES’. So now the “Label” column has two categories i.e. ‘YES’ and ‘NO’</p>
+<p>In the original data set the “Label” column has three categories i.e. ‘&lt;5’, ‘&gt;30’ and ‘NO’</p>
+<p>We have lumped the factors ‘&lt;5’ and ‘&gt;30’ in a new category names ‘YES’.</p>
+<p>So now the “Label” column has two categories i.e. ‘YES’ and ‘NO’</p>
 <pre><code>##               cast  gender age group  ...  change  Med  label
 ## 0        Caucasian  Female    [0-10)  ...      No   No     NO
 ## 1        Caucasian  Female   [10-20)  ...      Ch  Yes    YES
@@ -605,7 +603,6 @@ div.tocify {
 <pre><code>## (101766, 50)</code></pre>
 <p>Shape of the cleaned Data:</p>
 <pre><code>## (101766, 21)</code></pre>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </div>
 
 

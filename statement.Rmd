@@ -19,13 +19,13 @@ For that prediction, first of all you have to preprocess dataset and convert it 
 2) Apply more than 3 Machine Learning algorithms for the prediction and apply
 majority voting concept for the final output. 
 
--> Majority voting means to take Predicted labels from all applied classifiers and assign final label according to majority vote.
+  -> Majority voting means to take Predicted labels from all applied classifiers and assign final label according to majority vote.
 
 3) Exploratory Data Analysis: Lot of graphs to understand the Data insights.
 
 4) Accuracy, F Score more than 65 percent. 
 
-->The more the F-score, more marks will be awarded.
+  ->The more the F-score, more marks will be awarded.
 
 ## Note
 You can use Numpy, Pandas, Sklearn, Matplotlib libraries for this project.
