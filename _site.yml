@@ -9,6 +9,10 @@ navbar:
       href: DataCleaning.html
     - text: "Visualizations"
       href: Visualizations.html
+    - text: "Model"
+      href: model.html
+    # - text: "R Solutionl"
+    #   href: rsol.html
   right:
   - icon: fa-github
     href: https://github.com/MahreenAthar/bloodfast
