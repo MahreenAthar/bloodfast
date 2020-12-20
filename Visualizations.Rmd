@@ -50,59 +50,59 @@ Following visualizations help to decide visually about the variation present in 
 * repaglinide, nateglinide, chlorpropamide, acetohexamide, tolbutamide, acarbose, miglitol, troglitazone, tolazamide, glyburide, glipizide, glimepiride.pioglitazone, metformin, metformin.pioglitazone, metformin.rosiglitazone
 
 ```{python}
-sn.countplot(bp_org['cast'],hue=bp_org['label'], color='indigo').set_title('Cast')
+sn.countplot(bp_org['cast'],hue=bp['label'], color='indigo').set_title('Cast')
 plt.show()
 #colors = {'Caucasian': 'Green', 'AfricanAmerican': 'Red', 'Other': 'Purple', 'Asian': 'Blue', 'Hispanic': 'Yellow' }
 #sn.countplot(bp['cast'], palette=colors)
 #bp['cast'].unique()
 ```
 ```{python}
-sn.countplot(bp_org['gender'],hue=bp_org['label'], color='coral').set_title('Gender')
+sn.countplot(bp_org['gender'],hue=bp['label'], color='coral').set_title('Gender')
 plt.show()
 ```
 ```{python}
-sn.countplot(bp_org['age group'],hue=bp_org['label'], palette='Pastel2').set_title('Age Group')
+sn.countplot(bp_org['age group'],hue=bp['label'], palette='Pastel2').set_title('Age Group')
 plt.show()
 #bp['age group'].unique()
 #sn.countplot(bp['age group'], color='yellow')
 ```
 ```{python}
-sn.countplot(bp_org['num_procedures'],hue=bp_org['label'], palette='Pastel1').set_title('Number of Procedures')
+sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='Pastel1').set_title('Number of Procedures')
 plt.show()
 ```
 The serum glucose or blood sugar level is a measurement of the amount of a particular form of simple sugar in the blood.
 ```{python}
-sn.countplot(bp_org['max_glu_serum'],hue=bp_org['label'], color='deeppink').set_title('Maximum Blood Sugar Level (max_glu_serum)')
+sn.countplot(bp_org['max_glu_serum'],hue=bp['label'], color='deeppink').set_title('Maximum Blood Sugar Level (max_glu_serum)')
 plt.show()
 ```
 
 A1C is a blood test for type 2 diabetes and prediabetes. It measures your average blood glucose, or blood sugar, level over the past 3 months. Doctors may use the A1C alone or in combination with other diabetes tests to make a diagnosis. They also use the A1C to see how well you are managing your diabetes.
 ```{python}
-sn.countplot(bp_org['A1Cresult'],hue=bp_org['label'], color='purple').set_title('Glycated Hemoglobin Result(A1C result)')
+sn.countplot(bp_org['A1Cresult'],hue=bp['label'], color='purple').set_title('Glycated Hemoglobin Result(A1C result)')
 plt.show()
 ```
 Metformin is a medicine used to treat type 2 diabetes, and to help prevent type 2 diabetes if you're at high risk of developing it.
 
 Metformin works by reducing the amount of sugar your liver releases into your blood. It also makes your body respond better to insulin. Insulin is the hormone that controls the level of sugar in your blood. It's best to take metformin with a meal to reduce the side effects.
 ```{python}
-sn.countplot(bp_org['metformin'],hue=bp_org['label'], color='firebrick').set_title('Metformin Level')
+sn.countplot(bp_org['metformin'],hue=bp['label'], color='firebrick').set_title('Metformin Level')
 plt.show()
 ```
 Repaglinide is an antidiabetic drug in the class of medications known as meglitinides, and was invented in 1983. Repaglinide is an oral medication used in addition to diet and exercise for blood sugar control in type 2 diabetes mellitus.
 ```{python}
-sn.countplot(bp_org['repaglinide'],hue=bp_org['label'], color='darkorange').set_title('Repaglinide Dependent')
+sn.countplot(bp_org['repaglinide'],hue=bp['label'], color='darkorange').set_title('Repaglinide Dependent')
 plt.show()
 ```
 Nateglinide is an amino-acid derivative that lowers blood glucose levels by stimulating insulin secretion from the pancreas.
 ```{python}
-sn.countplot(bp_org['nateglinide'],hue=bp_org['label'], color='rebeccapurple').set_title('Nateglinide Dependent')
+sn.countplot(bp_org['nateglinide'],hue=bp['label'], color='rebeccapurple').set_title('Nateglinide Dependent')
 plt.show()
 ```
 Chlorpropamide is an oral antihyperglycemic agent used for the treatment of non-insulin-dependent diabetes mellitus (NIDDM).
 
 Chlorpropamide is used along with diet and exercise, and sometimes with other medications, to treat type 2 diabetes (condition in which the body does not use insulin normally and, therefore, cannot control the amount of sugar in the blood).
 ```{python}
-sn.countplot(bp_org['chlorpropamide'],hue=bp_org['label'], color='darkmagenta').set_title('Chlorpropamide Dependent')
+sn.countplot(bp_org['chlorpropamide'],hue=bp['label'], color='darkmagenta').set_title('Chlorpropamide Dependent')
 plt.show()
 ```
 
@@ -110,83 +110,83 @@ Glimepiride lowers blood sugar by causing the pancreas to produce insulin (a nat
 
 It is less preferred than metformin. Use is recommended together with diet and exercise.
 ```{python}
-sn.countplot(bp_org['glimepiride'],hue=bp_org['label'], color='plum').set_title('Glimepiride Dependent')
+sn.countplot(bp_org['glimepiride'],hue=bp['label'], color='plum').set_title('Glimepiride Dependent')
 plt.show()
 ```
 Acetohexamide is a medication used to treat diabetes type 2, particularly in people whose diabetes cannot be controlled by diet alone.
 ```{python}
-sn.countplot(bp_org['acetohexamide'],hue=bp_org['label'], color='yellowgreen').set_title('Acetohexamide Dependent')
+sn.countplot(bp_org['acetohexamide'],hue=bp['label'], color='yellowgreen').set_title('Acetohexamide Dependent')
 plt.show()
 ```
 Glipizide, sold under the brand name Glucotrol among others, is an anti-diabetic medication used to treat type 2 diabetes. It is used together with a diabetic diet and exercise. 
 ```{python}
-sn.countplot(bp_org['glipizide'],hue=bp_org['label'], color='indianred').set_title('Glipizide Dependent')
+sn.countplot(bp_org['glipizide'],hue=bp['label'], color='indianred').set_title('Glipizide Dependent')
 plt.show()
 ```
 Glyburide lowers blood sugar by causing the pancreas to produce insulin (a natural substance that is needed to break down sugar in the body) and helping the body use insulin efficiently. This medication will only help lower blood sugar in people whose bodies produce insulin naturally.
 ```{python}
-sn.countplot(bp_org['glyburide'],hue=bp_org['label'], color='lightsalmon').set_title('Glyburide Dependent')
+sn.countplot(bp_org['glyburide'],hue=bp['label'], color='lightsalmon').set_title('Glyburide Dependent')
 plt.show()
 ```
 Tolbutamide is used along with diet and exercise, and sometimes with other medications, to treat type 2 diabetes (condition in which the body does not use insulin normally and, therefore, cannot control the amount of sugar in the blood). This medication will only help lower blood sugar in people whose bodies produce insulin naturally.
 ```{python}
-sn.countplot(bp_org['tolbutamide'],hue=bp_org['label'], color='lightcoral').set_title('Tolbutamide Dependent')
+sn.countplot(bp_org['tolbutamide'],hue=bp['label'], color='lightcoral').set_title('Tolbutamide Dependent')
 plt.show()
 ```
 Pioglitazone is used along with a proper diet and exercise program to control high blood sugar in patients with type 2 diabetes.
 ```{python}
-sn.countplot(bp_org['pioglitazone'],hue=bp_org['label'], color='thistle').set_title('Pioglitazone Dependent')
+sn.countplot(bp_org['pioglitazone'],hue=bp['label'], color='thistle').set_title('Pioglitazone Dependent')
 plt.show()
 ```
 Rosiglitazone (trade name Avandia) is an antidiabetic drug. It works as an insulin sensitizer, by binding to the PPAR(a unique set of fatty acid) in fat cells and making the cells more responsive to insulin.
 ```{python}
-sn.countplot(bp_org['rosiglitazone'],hue=bp_org['label'], color='skyblue').set_title('Rosiglitazone Dependent')
+sn.countplot(bp_org['rosiglitazone'],hue=bp['label'], color='skyblue').set_title('Rosiglitazone Dependent')
 plt.show()
 ```
 Acarbose is an anti-diabetic drug used for slowing the action of certain chemicals that break down food to release glucose (sugar) into your blood. Slowing food digestion helps keep blood glucose from rising very high after meals.
 ```{python}
-sn.countplot(bp_org['acarbose'],hue=bp_org['label'], color='teal').set_title('Acarbose Dependent')
+sn.countplot(bp_org['acarbose'],hue=bp['label'], color='teal').set_title('Acarbose Dependent')
 plt.show()
 ```
 Miglitol is primarily used in diabetes of type 2 and is an oral anti-diabetic drug that acts by inhibiting the ability of the patient to break down complex carbohydrates into glucose.
 ```{python}
-sn.countplot(bp_org['miglitol'],hue=bp_org['label'], color='slateblue').set_title('Miglitol Dependent')
+sn.countplot(bp_org['miglitol'],hue=bp['label'], color='slateblue').set_title('Miglitol Dependent')
 plt.legend(loc='upper right')
 plt.show()
 ```
 Troglitazone is an antidiabetic and anti-inflammatory drug. It is used to help those with type 2 diabetes respond better to insulin and to reduce the amount of sugar produced by the liver.
 ```{python}
-sn.countplot(bp_org['troglitazone'],hue=bp_org['label'], color='purple').set_title('Troglitazone Dependent')
+sn.countplot(bp_org['troglitazone'],hue=bp['label'], color='purple').set_title('Troglitazone Dependent')
 plt.show()
 ```
 Tolazamide is an oral blood glucose lowering drug used for people with Type 2 diabetes.
 ```{python}
-sn.countplot(bp_org['tolazamide'],hue=bp_org['label'], color='y').set_title('Tolazamide Dependent')
+sn.countplot(bp_org['tolazamide'],hue=bp['label'], color='y').set_title('Tolazamide Dependent')
 plt.show()
 ```
 Insulin is a hormone that lowers the level of glucose (a type of sugar) in the blood. It's made by the beta cells of the pancreas and released into the blood when the glucose level goes up, such as after eating. Insulin helps glucose enter the body's cells, where it can be used for energy or stored for future use.
 
 Taking insulin helps you manage your blood sugar levels. Everybody with type 1 and some people with type 2 diabetes need to inject insulin to help manage their blood sugar levels.
 ```{python}
-sn.countplot(bp_org['insulin'],hue=bp_org['label'], palette='Pastel1').set_title('Insulin Level')
+sn.countplot(bp_org['insulin'],hue=bp['label'], palette='Pastel1').set_title('Insulin Level')
 plt.show()
 ```
 This combination medication is used with a proper diet and exercise program to control high blood sugar in people with type 2 diabetes. It may also be used with other diabetes medications.
 
 This product contains 2 medications. Both of these medications work by helping to restore your body's proper response to the insulin you naturally produce.
 ```{python}
-sn.countplot(bp_org['glyburide-metformin'],hue=bp_org['label'], palette='Set3').set_title('Glyburide-Metformin Dependent')
+sn.countplot(bp_org['glyburide-metformin'],hue=bp['label'], palette='Set3').set_title('Glyburide-Metformin Dependent')
 plt.legend(loc='upper right')
 plt.show()
 ```
 Glipizide-Metformin diabetes medication is a combination of 2 drugs (glipizide and metformin). Both of these medications work by helping to restore your body's proper response to the insulin you naturally produce. It is used along with a diet and exercise program to control high blood sugar in patients with type 2 diabetes.
 ```{python}
-sn.countplot(bp_org['glipizide-metformin'],hue=bp_org['label'], color='darkcyan').set_title('Glipizide-Metformin Dependent')
+sn.countplot(bp_org['glipizide-metformin'],hue=bp['label'], color='darkcyan').set_title('Glipizide-Metformin Dependent')
 plt.show()
 ```
 Glimepiride-Pioglitazone medication is a combination of 2 drugs, pioglitazone and glimepiride. It is used along with a proper diet and exercise program to control high blood sugar in patients with type 2 diabetes. Controlling high blood sugar helps prevent kidney damage, blindness, nerve problems, loss of limbs, and sexual function problems. Proper control of diabetes may also lessen your risk of a heart attack or stroke.
 ```{python}
-sn.countplot(bp_org['glimepiride-pioglitazone'],hue=bp_org['label'], color='darkgoldenrod').set_title('Glimepiride-Pioglitazone Dependent')
+sn.countplot(bp_org['glimepiride-pioglitazone'],hue=bp['label'], color='darkgoldenrod').set_title('Glimepiride-Pioglitazone Dependent')
 plt.show()
 ```
 
