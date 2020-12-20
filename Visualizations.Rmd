@@ -22,7 +22,7 @@ bp_org = pd.read_csv("Blood_Pressure_data.csv", na_values = "?")
 # bp_org.head()
 ```
 
-## Correlation matrix of original(uncleaned) Data set
+## Correlation matrix(Original)
 This is the correlation matrix of the original uncleaned data set, displayed using a heatmap.
 ```{python}
 corrMatrix_org = bp_org.corr()
@@ -32,10 +32,30 @@ plt.show()
 ```
 ```{python include=FALSE}
 bp = pd.read_csv("bp.csv", na_values = "?")
+bp['cast'] = bp['cast'].astype('category')
+bp["cast"].fillna('Caucasian', inplace=True)   # 'mode' imputation has been applied as Caucasian is the most frequent category in cast
+
+bp['gender'] = bp['gender'].astype('category')
+bp['age group'] = bp['age group'].astype('category')
+bp['max_glu_serum'] = bp['max_glu_serum'].astype('category')
+bp['A1Cresult'] = bp['A1Cresult'].astype('category')
+bp['glimepiride'] = bp['glimepiride'].astype('category')
+bp['pioglitazone'] = bp['pioglitazone'].astype('category')
+bp['rosiglitazone'] = bp['rosiglitazone'].astype('category')
+bp['insulin'] = bp['insulin'].astype('category')
+bp['glyburide-metformin'] = bp['glyburide-metformin'].astype('category')
+bp['change'] = bp['change'].astype('category')
+bp['Med'] = bp['Med'].astype('category')
+
+label_dict = {'>5':'YES', '<30':'YES','NO':'NO'}
+bp = bp.replace(dict(label=label_dict))
+bp['label'] = bp['label'].astype('category')
+
+bp = bp.iloc[:,0:]
 ```
 
 
-## Correlation matrix of final(cleaned) Data set
+## Correlation matrix(Final)
 This is the correlation matrix of the final cleaned data set, displayed using a heatmap.
 ```{python}
 corrMatrix_final = bp.corr()
@@ -44,184 +64,197 @@ sn.heatmap(corrMatrix_final, annot=True, linewidth=0.5, ax=ax)
 plt.show()
 ```
 
-## Vislaizations for Factor Variables vs. Target Variables
+```{python include=FALSE}
+# font = {'size'   : 20}
+# 
+# plt.rc('font', **font)
+plt.rcParams.update({'font.size': 22})
+```
+
+## Visualizations(Factor vs. Target Variables)
 Following visualizations help to decide visually about the variation present in each variable and hence its elimination or otherwise. As a result of these visualizations we decided to delete following variables:
 
-* repaglinide, nateglinide, chlorpropamide, acetohexamide, tolbutamide, acarbose, miglitol, troglitazone, tolazamide, glyburide, glipizide, glimepiride.pioglitazone, metformin, metformin.pioglitazone, metformin.rosiglitazone
+* repaglinide, nateglinide, chlorpropamide, acetohexamide, tolbutamide, acarbose, miglitol, troglitazone, tolazamide, glyburide, glipizide, glimepiride.pioglitazone, metformin, metformin.pioglitazone, metformin.rosiglitazone, glipizide-metformin
 
-```{python}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['cast'],hue=bp['label'], color='indigo').set_title('Cast')
 plt.show()
-#colors = {'Caucasian': 'Green', 'AfricanAmerican': 'Red', 'Other': 'Purple', 'Asian': 'Blue', 'Hispanic': 'Yellow' }
-#sn.countplot(bp['cast'], palette=colors)
-#bp['cast'].unique()
-```
-```{python}
+
 sn.countplot(bp_org['gender'],hue=bp['label'], color='coral').set_title('Gender')
-plt.show()
-```
-```{python}
-sn.countplot(bp_org['age group'],hue=bp['label'], palette='Pastel2').set_title('Age Group')
-plt.show()
-#bp['age group'].unique()
-#sn.countplot(bp['age group'], color='yellow')
-```
-```{python}
-sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='Pastel1').set_title('Number of Procedures')
-plt.show()
-```
-The serum glucose or blood sugar level is a measurement of the amount of a particular form of simple sugar in the blood.
-```{python}
-sn.countplot(bp_org['max_glu_serum'],hue=bp['label'], color='deeppink').set_title('Maximum Blood Sugar Level (max_glu_serum)')
-plt.show()
-```
-
-A1C is a blood test for type 2 diabetes and prediabetes. It measures your average blood glucose, or blood sugar, level over the past 3 months. Doctors may use the A1C alone or in combination with other diabetes tests to make a diagnosis. They also use the A1C to see how well you are managing your diabetes.
-```{python}
-sn.countplot(bp_org['A1Cresult'],hue=bp['label'], color='purple').set_title('Glycated Hemoglobin Result(A1C result)')
-plt.show()
-```
-Metformin is a medicine used to treat type 2 diabetes, and to help prevent type 2 diabetes if you're at high risk of developing it.
-
-Metformin works by reducing the amount of sugar your liver releases into your blood. It also makes your body respond better to insulin. Insulin is the hormone that controls the level of sugar in your blood. It's best to take metformin with a meal to reduce the side effects.
-```{python}
-sn.countplot(bp_org['metformin'],hue=bp['label'], color='firebrick').set_title('Metformin Level')
-plt.show()
-```
-Repaglinide is an antidiabetic drug in the class of medications known as meglitinides, and was invented in 1983. Repaglinide is an oral medication used in addition to diet and exercise for blood sugar control in type 2 diabetes mellitus.
-```{python}
-sn.countplot(bp_org['repaglinide'],hue=bp['label'], color='darkorange').set_title('Repaglinide Dependent')
-plt.show()
-```
-Nateglinide is an amino-acid derivative that lowers blood glucose levels by stimulating insulin secretion from the pancreas.
-```{python}
-sn.countplot(bp_org['nateglinide'],hue=bp['label'], color='rebeccapurple').set_title('Nateglinide Dependent')
-plt.show()
-```
-Chlorpropamide is an oral antihyperglycemic agent used for the treatment of non-insulin-dependent diabetes mellitus (NIDDM).
-
-Chlorpropamide is used along with diet and exercise, and sometimes with other medications, to treat type 2 diabetes (condition in which the body does not use insulin normally and, therefore, cannot control the amount of sugar in the blood).
-```{python}
-sn.countplot(bp_org['chlorpropamide'],hue=bp['label'], color='darkmagenta').set_title('Chlorpropamide Dependent')
-plt.show()
-```
-
-Glimepiride lowers blood sugar by causing the pancreas to produce insulin (a natural substance that is needed to break down sugar in the body) and helping the body use insulin efficiently.Glimepiride, sold under the trade name Amaryl among others.
-
-It is less preferred than metformin. Use is recommended together with diet and exercise.
-```{python}
-sn.countplot(bp_org['glimepiride'],hue=bp['label'], color='plum').set_title('Glimepiride Dependent')
-plt.show()
-```
-Acetohexamide is a medication used to treat diabetes type 2, particularly in people whose diabetes cannot be controlled by diet alone.
-```{python}
-sn.countplot(bp_org['acetohexamide'],hue=bp['label'], color='yellowgreen').set_title('Acetohexamide Dependent')
-plt.show()
-```
-Glipizide, sold under the brand name Glucotrol among others, is an anti-diabetic medication used to treat type 2 diabetes. It is used together with a diabetic diet and exercise. 
-```{python}
-sn.countplot(bp_org['glipizide'],hue=bp['label'], color='indianred').set_title('Glipizide Dependent')
-plt.show()
-```
-Glyburide lowers blood sugar by causing the pancreas to produce insulin (a natural substance that is needed to break down sugar in the body) and helping the body use insulin efficiently. This medication will only help lower blood sugar in people whose bodies produce insulin naturally.
-```{python}
-sn.countplot(bp_org['glyburide'],hue=bp['label'], color='lightsalmon').set_title('Glyburide Dependent')
-plt.show()
-```
-Tolbutamide is used along with diet and exercise, and sometimes with other medications, to treat type 2 diabetes (condition in which the body does not use insulin normally and, therefore, cannot control the amount of sugar in the blood). This medication will only help lower blood sugar in people whose bodies produce insulin naturally.
-```{python}
-sn.countplot(bp_org['tolbutamide'],hue=bp['label'], color='lightcoral').set_title('Tolbutamide Dependent')
-plt.show()
-```
-Pioglitazone is used along with a proper diet and exercise program to control high blood sugar in patients with type 2 diabetes.
-```{python}
-sn.countplot(bp_org['pioglitazone'],hue=bp['label'], color='thistle').set_title('Pioglitazone Dependent')
-plt.show()
-```
-Rosiglitazone (trade name Avandia) is an antidiabetic drug. It works as an insulin sensitizer, by binding to the PPAR(a unique set of fatty acid) in fat cells and making the cells more responsive to insulin.
-```{python}
-sn.countplot(bp_org['rosiglitazone'],hue=bp['label'], color='skyblue').set_title('Rosiglitazone Dependent')
-plt.show()
-```
-Acarbose is an anti-diabetic drug used for slowing the action of certain chemicals that break down food to release glucose (sugar) into your blood. Slowing food digestion helps keep blood glucose from rising very high after meals.
-```{python}
-sn.countplot(bp_org['acarbose'],hue=bp['label'], color='teal').set_title('Acarbose Dependent')
-plt.show()
-```
-Miglitol is primarily used in diabetes of type 2 and is an oral anti-diabetic drug that acts by inhibiting the ability of the patient to break down complex carbohydrates into glucose.
-```{python}
-sn.countplot(bp_org['miglitol'],hue=bp['label'], color='slateblue').set_title('Miglitol Dependent')
 plt.legend(loc='upper right')
 plt.show()
 ```
-Troglitazone is an antidiabetic and anti-inflammatory drug. It is used to help those with type 2 diabetes respond better to insulin and to reduce the amount of sugar produced by the liver.
-```{python}
-sn.countplot(bp_org['troglitazone'],hue=bp['label'], color='purple').set_title('Troglitazone Dependent')
-plt.show()
-```
-Tolazamide is an oral blood glucose lowering drug used for people with Type 2 diabetes.
-```{python}
-sn.countplot(bp_org['tolazamide'],hue=bp['label'], color='y').set_title('Tolazamide Dependent')
-plt.show()
-```
-Insulin is a hormone that lowers the level of glucose (a type of sugar) in the blood. It's made by the beta cells of the pancreas and released into the blood when the glucose level goes up, such as after eating. Insulin helps glucose enter the body's cells, where it can be used for energy or stored for future use.
 
-Taking insulin helps you manage your blood sugar levels. Everybody with type 1 and some people with type 2 diabetes need to inject insulin to help manage their blood sugar levels.
-```{python}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
+sn.countplot(bp_org['age group'],hue=bp['label'], palette='Pastel2').set_title('Age Group')
+plt.show()
+
+sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='Pastel1').set_title('Number of Procedures')
+plt.show()
+```
+
+
+### Medication
+There are 24 features for medications.
+
+Generic names: metformin, repaglinide, nateglinide, chlorpropamide, glimepiride, acetohexamide, glipizide, glyburide, tolbutamide, pioglitazone, rosiglitazone, acarbose, miglitol, troglitazone, tolazamide, examide, sitagliptin, insulin, glyburide-metformin, glipizide-metformin, glimepiride-pioglitazone, metformin-rosiglitazone, and metformin-pioglitazone
+
+The feature indicates whether the drug was prescribed or there was a change in the dosage. 
+
+Values: 
+
+  + “up” if the dosage was increased during the encounter
+      
+  + “down” if the dosage was decreased
+      
+  + “steady” if the dosage did not change, and 
+      
+  + “no” if the drug was not prescribed
+
+
+```{python include=FALSE}
+# font = {'size'   : 20}
+# 
+# plt.rc('font', **font)
+plt.rcParams.update({'font.size': 24})
+```
+
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['max_glu_serum'],hue=bp['label'], color='deeppink').set_title('Maximum Blood Sugar Level (max_glu_serum)')
+plt.show()
+
+sn.countplot(bp_org['A1Cresult'],hue=bp['label'], color='purple').set_title('Glycated Hemoglobin Result(A1C result)')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['metformin'],hue=bp['label'], color='firebrick').set_title('Metformin Level')
+plt.show()
+
+sn.countplot(bp_org['glimepiride'],hue=bp['label'], color='plum').set_title('Glimepiride Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['pioglitazone'],hue=bp['label'], color='thistle').set_title('Pioglitazone Dependent')
+plt.show()
+
+sn.countplot(bp_org['rosiglitazone'],hue=bp['label'], color='skyblue').set_title('Rosiglitazone Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
 sn.countplot(bp_org['insulin'],hue=bp['label'], palette='Pastel1').set_title('Insulin Level')
 plt.show()
-```
-This combination medication is used with a proper diet and exercise program to control high blood sugar in people with type 2 diabetes. It may also be used with other diabetes medications.
 
-This product contains 2 medications. Both of these medications work by helping to restore your body's proper response to the insulin you naturally produce.
-```{python}
 sn.countplot(bp_org['glyburide-metformin'],hue=bp['label'], palette='Set3').set_title('Glyburide-Metformin Dependent')
 plt.legend(loc='upper right')
 plt.show()
 ```
-Glipizide-Metformin diabetes medication is a combination of 2 drugs (glipizide and metformin). Both of these medications work by helping to restore your body's proper response to the insulin you naturally produce. It is used along with a diet and exercise program to control high blood sugar in patients with type 2 diabetes.
-```{python}
-sn.countplot(bp_org['glipizide-metformin'],hue=bp['label'], color='darkcyan').set_title('Glipizide-Metformin Dependent')
+
+
+#### Deleted
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['repaglinide'],hue=bp['label'], color='darkorange').set_title('Repaglinide Dependent')
 plt.show()
-```
-Glimepiride-Pioglitazone medication is a combination of 2 drugs, pioglitazone and glimepiride. It is used along with a proper diet and exercise program to control high blood sugar in patients with type 2 diabetes. Controlling high blood sugar helps prevent kidney damage, blindness, nerve problems, loss of limbs, and sexual function problems. Proper control of diabetes may also lessen your risk of a heart attack or stroke.
-```{python}
-sn.countplot(bp_org['glimepiride-pioglitazone'],hue=bp['label'], color='darkgoldenrod').set_title('Glimepiride-Pioglitazone Dependent')
+
+sn.countplot(bp_org['nateglinide'],hue=bp['label'], color='rebeccapurple').set_title('Nateglinide Dependent')
 plt.show()
 ```
 
-Metformin-Rosiglitazone is an oral antidiabetic agent, which acts primarily by increasing insulin sensitivity. It has now been discontinued due to too many side effects and has caused heart failure in some patients.
-```{python}
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['chlorpropamide'],hue=bp['label'], color='darkmagenta').set_title('Chlorpropamide Dependent')
+plt.show()
+
+sn.countplot(bp_org['acetohexamide'],hue=bp['label'], color='yellowgreen').set_title('Acetohexamide Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['glipizide'],hue=bp['label'], color='indianred').set_title('Glipizide Dependent')
+plt.show()
+
+sn.countplot(bp_org['glyburide'],hue=bp['label'], color='lightsalmon').set_title('Glyburide Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['tolbutamide'],hue=bp['label'], color='lightcoral').set_title('Tolbutamide Dependent')
+plt.show()
+
+sn.countplot(bp_org['acarbose'],hue=bp['label'], color='teal').set_title('Acarbose Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['miglitol'],hue=bp['label'], color='slateblue').set_title('Miglitol Dependent')
+plt.legend(loc='upper right')
+plt.show()
+
+sn.countplot(bp_org['troglitazone'],hue=bp['label'], color='purple').set_title('Troglitazone Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['tolazamide'],hue=bp['label'], color='y').set_title('Tolazamide Dependent')
+plt.show()
+
+sn.countplot(bp_org['glipizide-metformin'],hue=bp['label'], color='darkcyan').set_title('Glipizide-Metformin Dependent')
+plt.show()
+```
+
+```{python fig.show="hold", out.width="45%", echo=FALSE}
+sn.countplot(bp_org['glimepiride-pioglitazone'],hue=bp['label'], color='darkgoldenrod').set_title('Glimepiride-Pioglitazone Dependent')
+plt.show()
+
 sn.countplot(bp_org['metformin-rosiglitazone'],hue=bp['label'], color='green').set_title('Metformin-Rosiglitazone Dependent')
 plt.show()
 ```
 
-This combination medication is used along with a proper diet and exercise program to control high blood sugar in people with type 2 diabetes. Controlling high blood sugar helps prevent kidney damage, blindness, nerve problems, loss of limbs, and sexual function problems. Proper control of diabetes may also lessen your risk of a heart attack or stroke.
-
-Talk to your doctor about the risks and benefits of using pioglitazone-containing products.
-```{python}
+```{python fig.show="hold", out.width="45%", echo=FALSE}
 sn.countplot(bp_org['metformin-pioglitazone'],hue=bp['label'], color='coral').set_title('Metformin-Pioglitazone Dependent')
 plt.show()
 ```
 
-```{python}
+
+Change indicates if there was a change in diabetic medications (either dosage or generic name).
+
+Values: 
+
+  + “change” and “no change”
+    
+Med indicates if there was any diabetic medication prescribed. 
+
+Values: 
+
+  + “yes” and “no”
+  
+  
+```{python fig.show="hold", out.width="45%", echo=FALSE}
 sn.countplot(bp_org['change'],hue=bp['label'], palette='Pastel1').set_title('Change')
 plt.show()
-```
 
-```{python}
 sn.countplot(x=bp_org['Med'], hue=bp['label'], color='plum').set_title('Med')
 plt.show()
 ```
 
-## Label visualizaion of Original uncleaned data
-```{python}
+## Label( Original Vs. Final)
+Values: 
+
+   + “>5” if the patient was readmitted in more than 5 days
+       
+   + “<30” if the patient was readmitted in less than 30 days, and 
+       
+   + “No” for no record of readmission.
+
+We have lumped the categories ">5" and "<30" into "YES" in our final data and the "NO" category remains the same.
+```{python fig.show="hold", out.width="45%", echo=FALSE}
 sn.countplot(bp_org['label'], palette='Set3').set_title('Column Label from Original Data')
 plt.show()
-```
 
-## Label visualizaion of Final cleaned data
-```{python}
 sn.countplot(bp['label'], palette='Set2').set_title('Column Label from Final Data')
 plt.show()
 ```
