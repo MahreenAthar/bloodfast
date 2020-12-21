@@ -63,7 +63,7 @@ bp = bp.iloc[:,0:]
 ```
 
 
-```{python}
+```{python include=FALSE}
 bp.info()
 ```
 

@@ -28,4 +28,4 @@ The data contains such attributes as patient number, race, gender, age, admissio
 
 ## About the Author
 
-![Author](/home/mahreen/Documents/bloodfast/pp2.jpg)
+![Author](/home/mahreen/Documents/bloodfast/pp2.jpg){width=20%}

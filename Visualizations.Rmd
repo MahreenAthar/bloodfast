@@ -92,7 +92,18 @@ plt.show()
 sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='Pastel1').set_title('Number of Procedures')
 plt.show()
 ```
+## Boxplots
 
+```{python}
+# newdf = df.select_dtypes(include=numerics)
+```
+
+
+## Proportionality Comparison
+
+```{python}
+
+```
 
 ### Medication
 There are 24 features for medications.

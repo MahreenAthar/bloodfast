@@ -378,9 +378,6 @@ div.tocify {
 <li>
   <a href="model.html">Model</a>
 </li>
-<li>
-  <a href="rsol.html">R Solution</a>
-</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -409,35 +406,6 @@ div.tocify {
 </div>
 
 
-<pre class="python"><code>bp.info()</code></pre>
-<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-## RangeIndex: 101766 entries, 0 to 101765
-## Data columns (total 21 columns):
-##  #   Column               Non-Null Count   Dtype   
-## ---  ------               --------------   -----   
-##  0   cast                 101766 non-null  category
-##  1   gender               101766 non-null  category
-##  2   age group            101766 non-null  category
-##  3   time_in_hospital     101766 non-null  int64   
-##  4   num_lab_procedures   101766 non-null  int64   
-##  5   num_procedures       101766 non-null  int64   
-##  6   num_medications      101766 non-null  int64   
-##  7   number_outpatient    101766 non-null  int64   
-##  8   number_emergency     101766 non-null  int64   
-##  9   number_inpatient     101766 non-null  int64   
-##  10  number_diagnoses     101766 non-null  int64   
-##  11  max_glu_serum        101766 non-null  category
-##  12  A1Cresult            101766 non-null  category
-##  13  glimepiride          101766 non-null  category
-##  14  pioglitazone         101766 non-null  category
-##  15  rosiglitazone        101766 non-null  category
-##  16  insulin              101766 non-null  category
-##  17  glyburide-metformin  101766 non-null  category
-##  18  change               101766 non-null  category
-##  19  Med                  101766 non-null  category
-##  20  label                101766 non-null  category
-## dtypes: category(13), int64(8)
-## memory usage: 7.5 MB</code></pre>
 <div id="encoding" class="section level1">
 <h1>Encoding</h1>
 </div>
@@ -479,8 +447,8 @@ NB F1 Score = 0.04589610023933549</p>
 <p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, RandomForestClassifier())])</p>
 <p>RF Accuracy = 0.6085213426617404</p>
 <p>RF F1 Score = 0.6537097559279604</p>
-<pre><code>## Accuracy:  0.6061630374970521</code></pre>
-<pre><code>## f1 score:  0.6532871972318338</code></pre>
+<pre><code>## Accuracy:  0.6063595629274429</code></pre>
+<pre><code>## f1 score:  0.652679035893879</code></pre>
 </div>
 <div id="decision-tree-model" class="section level2">
 <h2>Decision Tree Model</h2>
@@ -505,8 +473,8 @@ RF: 4</p>
 <p>Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. We received following results for our majority vote ensemble:</p>
 <p>Accuracy = 0.6229070041663392<br />
 F1 Score = 0.6928937259923176</p>
-<pre><code>## Accuracy:  0.6202342583130257</code></pre>
-<pre><code>## f1 score:  0.6905981811195082</code></pre>
+<pre><code>## Accuracy:  0.6223174278751671</code></pre>
+<pre><code>## f1 score:  0.6926595234287541</code></pre>
 </div>
 </div>
 

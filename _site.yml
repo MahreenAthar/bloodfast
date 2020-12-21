@@ -11,8 +11,8 @@ navbar:
       href: Visualizations.html
     - text: "Model"
       href: model.html
-    - text: "R Solution"
-      href: rsol.html
+    # - text: "R Solution"
+    #   href: rsol.html
   right:
   - icon: fa-github
     href: https://github.com/MahreenAthar/bloodfast
