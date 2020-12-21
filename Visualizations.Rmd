@@ -107,17 +107,25 @@ print(bpNum)
 ```
 
 
-```{python out.width="50%"}
-fig, ax =plt.subplots(nrows=2,ncols=4, figsize=(16,8))  
+```{python fig.show="hold", out.width="50%"}
+fig, ax =plt.subplots(nrows=2,ncols=2)  
 
 sn.boxplot(x = bp['time_in_hospital'], color='RED',ax=ax[0][0])
 sn.boxplot(x = bp['num_lab_procedures'], color="yellow",ax=ax[0][1])
-sn.boxplot(x = bp['num_procedures'], color="purple", ax=ax[0][2])
-sn.boxplot(x = bp['num_medications'], color='green',ax=ax[0][3])
-sn.boxplot(x = bp['number_outpatient'], color='salmon',ax=ax[1][0])
-sn.boxplot(x = bp['number_emergency'], color='pink',ax=ax[1][1])
-sn.boxplot(x = bp['number_inpatient'], color='firebrick',ax=ax[1][2])
-sn.boxplot(x = bp['number_diagnoses'], color='blue',ax=ax[1][3])
+sn.boxplot(x = bp['num_procedures'], color="purple", ax=ax[1][0])
+sn.boxplot(x = bp['num_medications'], color='green',ax=ax[1][1])
+
+plt.show()
+```
+
+
+```{python fig.show="hold", out.width="50%"}
+fig, ax =plt.subplots(nrows=2,ncols=2)  
+
+sn.boxplot(x = bp['number_outpatient'], color='salmon',ax=ax[0][0])
+sn.boxplot(x = bp['number_emergency'], color='pink',ax=ax[0][1])
+sn.boxplot(x = bp['number_inpatient'], color='firebrick',ax=ax[1][0])
+sn.boxplot(x = bp['number_diagnoses'], color='blue',ax=ax[1][1])
 
 plt.show()
 ```
