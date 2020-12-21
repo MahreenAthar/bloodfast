@@ -378,6 +378,9 @@ div.tocify {
 <li>
   <a href="model.html">Model</a>
 </li>
+<li>
+  <a href="rsol.html">R Solution</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -406,7 +409,106 @@ div.tocify {
 </div>
 
 
-
+<pre class="python"><code>bp.info()</code></pre>
+<pre><code>## &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+## RangeIndex: 101766 entries, 0 to 101765
+## Data columns (total 21 columns):
+##  #   Column               Non-Null Count   Dtype   
+## ---  ------               --------------   -----   
+##  0   cast                 101766 non-null  category
+##  1   gender               101766 non-null  category
+##  2   age group            101766 non-null  category
+##  3   time_in_hospital     101766 non-null  int64   
+##  4   num_lab_procedures   101766 non-null  int64   
+##  5   num_procedures       101766 non-null  int64   
+##  6   num_medications      101766 non-null  int64   
+##  7   number_outpatient    101766 non-null  int64   
+##  8   number_emergency     101766 non-null  int64   
+##  9   number_inpatient     101766 non-null  int64   
+##  10  number_diagnoses     101766 non-null  int64   
+##  11  max_glu_serum        101766 non-null  category
+##  12  A1Cresult            101766 non-null  category
+##  13  glimepiride          101766 non-null  category
+##  14  pioglitazone         101766 non-null  category
+##  15  rosiglitazone        101766 non-null  category
+##  16  insulin              101766 non-null  category
+##  17  glyburide-metformin  101766 non-null  category
+##  18  change               101766 non-null  category
+##  19  Med                  101766 non-null  category
+##  20  label                101766 non-null  category
+## dtypes: category(13), int64(8)
+## memory usage: 7.5 MB</code></pre>
+<div id="encoding" class="section level1">
+<h1>Encoding</h1>
+</div>
+<div id="model-development" class="section level1">
+<h1>Model Development</h1>
+<div id="multilayer-perceptron" class="section level2">
+<h2>Multilayer Perceptron</h2>
+<p>Following Multilayer Perceptron Neural Net has been implemented:</p>
+<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])),<br />
+(‘scl’, StandardScaler()),<br />
+(‘m’, MLPClassifier(hidden_layer_sizes=(12, 1), max_iter=300, random_state=1))])</p>
+<p>MLP Accuracy = 0.6252260042449493</p>
+<p>MLP F1 Score = 0.6742287061396016</p>
+<pre><code>## Accuracy:  0.6252260042449493</code></pre>
+<pre><code>## f1 score:  0.6742287061396016</code></pre>
+</div>
+<div id="xgboost-model" class="section level2">
+<h2>XGBoost Model</h2>
+<p>Following Extreme Gradient Boosting model has been implemented:<br />
+Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()),<br />
+(‘m’, GradientBoostingClassifier(random_state=0))])</p>
+<p>GB Accuracy = 0.626837512774153<br />
+GB F1 Score = 0.6858787718369508</p>
+<pre><code>## Accuracy:  0.626837512774153</code></pre>
+<pre><code>## f1 score:  0.6858787718369508</code></pre>
+</div>
+<div id="naive-bayes-model" class="section level2">
+<h2>Naive Baye’s Model</h2>
+<p>Following Naive Bay’s model has been implemented:</p>
+<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, GaussianNB())])</p>
+<p>NB Accuracy = 0.46725886329691063<br />
+NB F1 Score = 0.04589610023933549</p>
+<pre><code>## Accuracy:  0.46725886329691063</code></pre>
+<pre><code>## f1 score:  0.04589610023933549</code></pre>
+</div>
+<div id="random-forest-model" class="section level2">
+<h2>Random Forest Model</h2>
+<p>Random Forest model has been implemented with following specifications:</p>
+<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, RandomForestClassifier())])</p>
+<p>RF Accuracy = 0.6085213426617404</p>
+<p>RF F1 Score = 0.6537097559279604</p>
+<pre><code>## Accuracy:  0.6061630374970521</code></pre>
+<pre><code>## f1 score:  0.6532871972318338</code></pre>
+</div>
+<div id="decision-tree-model" class="section level2">
+<h2>Decision Tree Model</h2>
+<p>Decision Tree model with following specifications has been implemented :</p>
+<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, DecisionTreeClassifier(random_state=0))])</p>
+<p>DT Accuracy = 0.5485417813065011</p>
+<p>DT F1 Score = 0.5787736541000441</p>
+<pre><code>## Accuracy:  0.5485417813065011</code></pre>
+<pre><code>## f1 score:  0.5787736541000441</code></pre>
+</div>
+</div>
+<div id="majority-voting-ensemble" class="section level1">
+<h1>Majority Voting Ensemble</h1>
+<p>Majority voting ensemble has been designed with following weights:<br />
+NB: -1<br />
+MLP: 3<br />
+GB: 2<br />
+DT: 0<br />
+RF: 4</p>
+<div id="performance-metrics" class="section level2">
+<h2>Performance Metrics</h2>
+<p>Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. We received following results for our majority vote ensemble:</p>
+<p>Accuracy = 0.6229070041663392<br />
+F1 Score = 0.6928937259923176</p>
+<pre><code>## Accuracy:  0.6202342583130257</code></pre>
+<pre><code>## f1 score:  0.6905981811195082</code></pre>
+</div>
+</div>
 
 
 

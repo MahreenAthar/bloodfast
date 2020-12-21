@@ -8,7 +8,238 @@ knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
 ```
 
-```{python}
+```{python include=FALSE}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sn
+import random
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder, RobustScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.metrics import f1_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
+```
 
+```{python include=FALSE}
+bp = pd.read_csv("bp.csv")
+bp.head()
+```
+
+```{python include=FALSE}
+random.seed(42)
+bp['cast'] = bp['cast'].astype('category')
+bp["cast"].fillna('Caucasian', inplace=True)   # 'mode' imputation has been applied as Caucasian is the most frequent category in cast
+
+bp['gender'] = bp['gender'].astype('category')
+bp['age group'] = bp['age group'].astype('category')
+bp['max_glu_serum'] = bp['max_glu_serum'].astype('category')
+bp['A1Cresult'] = bp['A1Cresult'].astype('category')
+bp['glimepiride'] = bp['glimepiride'].astype('category')
+bp['pioglitazone'] = bp['pioglitazone'].astype('category')
+bp['rosiglitazone'] = bp['rosiglitazone'].astype('category')
+bp['insulin'] = bp['insulin'].astype('category')
+bp['glyburide-metformin'] = bp['glyburide-metformin'].astype('category')
+bp['change'] = bp['change'].astype('category')
+bp['Med'] = bp['Med'].astype('category')
+
+label_dict = {'>5':'YES', '<30':'YES','NO':'NO'}
+bp = bp.replace(dict(label=label_dict))
+bp['label'] = bp['label'].astype('category')
+
+bp = bp.iloc[:,0:]
+```
+
+
+```{python}
+bp.info()
+```
+
+```{python include=FALSE}
+X = bp.iloc[:,0:-1]
+y = bp.iloc[:,-1]
+print("\033[1m" + "X" + "\033[0m")
+print(X.head())
+print("\n" + "\033[1m" + "y" + "\033[0m")
+print(y.head())
+```
+
+# Encoding  
+
+```{python include=FALSE}
+scaler = StandardScaler()
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(), [0, 1,2,11,12,13,14,15,16,17,18,19])], remainder='passthrough')
+```
+
+# Model Development  
+
+## Multilayer Perceptron  
+
+Following Multilayer Perceptron Neural Net has been implemented:
+
+Pipeline(steps=[('t', ColumnTransformer(remainder='passthrough', transformers=[('cat', OneHotEncoder(),
+                                                  [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])),   
+                ('scl', StandardScaler()),  
+                ('m',  MLPClassifier(hidden_layer_sizes=(12, 1), max_iter=300, random_state=1))])  
+
+MLP Accuracy = 0.6252260042449493  
+
+MLP F1 Score = 0.6742287061396016
+
+```{python include=FALSE}
+model_MLP = MLPClassifier(hidden_layer_sizes=(12,1), activation='relu', solver='adam',random_state=1, max_iter=300)
+pipeline_MLP = Pipeline(steps=[('t', transformer), ('scl', scaler),('m',model_MLP)])
+pipeline_MLP.fit(X_train, y_train)
+```
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_MLP.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_MLP.predict(X_test), average='binary', pos_label='NO'))
+```
+
+## XGBoost Model  
+Following Extreme Gradient Boosting model has been implemented:  
+Pipeline(steps=[('t',
+                 ColumnTransformer(remainder='passthrough',
+                                   transformers=[('cat', OneHotEncoder(),
+                                                  [0, 1, 2, 11, 12, 13, 14, 15,
+                                                   16, 17, 18, 19])])),
+                ('scl', StandardScaler()),  
+                ('m', GradientBoostingClassifier(random_state=0))])  
+                
+GB Accuracy = 0.626837512774153  
+GB F1 Score = 0.6858787718369508  
+
+```{python include=FALSE}
+scaler = StandardScaler()
+
+model_GB = GradientBoostingClassifier(random_state=0)
+pipeline_GB = Pipeline(steps=[('t', transformer), ('scl', scaler),('m',model_GB)])
+pipeline_GB.fit(X_train, y_train)
+```
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_GB.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_GB.predict(X_test), average='binary', pos_label='NO'))
+```
+
+## Naive Baye's Model  
+Following Naive Bay's model has been implemented:  
+
+Pipeline(steps=[('t',
+                 ColumnTransformer(remainder='passthrough',
+                                   transformers=[('cat', OneHotEncoder(),
+                                                  [0, 1, 2, 11, 12, 13, 14, 15,
+                                                   16, 17, 18, 19])])),
+                ('scl', StandardScaler()), ('m', GaussianNB())])  
+                
+NB Accuracy = 0.46725886329691063  
+NB F1 Score = 0.04589610023933549  
+
+```{python include=FALSE}
+model_NB = GaussianNB()
+pipeline_NB = Pipeline(steps=[('t', transformer), ('scl', scaler), ('m',model_NB)])
+pipeline_NB.fit(X_train, y_train)
+```
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_NB.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_NB.predict(X_test), average='binary', pos_label='NO'))
+```
+
+## Random Forest Model  
+Random Forest model has been implemented with following specifications:  
+
+Pipeline(steps=[('t',
+                 ColumnTransformer(remainder='passthrough',
+                                   transformers=[('cat', OneHotEncoder(),
+                                                  [0, 1, 2, 11, 12, 13, 14, 15,
+                                                   16, 17, 18, 19])])),
+                ('scl', StandardScaler()), ('m', RandomForestClassifier())])  
+                
+RF Accuracy = 0.6085213426617404  
+
+RF F1 Score = 0.6537097559279604  
+
+```{python include=FALSE}
+model_RF = RandomForestClassifier()
+pipeline_RF = Pipeline(steps=[('t', transformer), ('scl', scaler), ('m',model_RF)])
+pipeline_RF.fit(X_train, y_train)
+yhat_RF = pipeline_RF.predict(X_test)
+```
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_RF.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_RF.predict(X_test), average='binary', pos_label='NO'))
+```
+
+## Decision Tree Model  
+Decision Tree model with following specifications has been implemented :  
+
+Pipeline(steps=[('t',
+                 ColumnTransformer(remainder='passthrough',
+                                   transformers=[('cat', OneHotEncoder(),
+                                                  [0, 1, 2, 11, 12, 13, 14, 15,
+                                                   16, 17, 18, 19])])),
+                ('scl', StandardScaler()),
+                ('m', DecisionTreeClassifier(random_state=0))])  
+                
+DT Accuracy = 0.5485417813065011  
+
+DT F1 Score = 0.5787736541000441  
+
+```{python include=FALSE}
+model_DT = DecisionTreeClassifier(random_state=0)
+pipeline_DT = Pipeline(steps=[('t', transformer), ('scl', scaler), ('m',model_DT)])
+pipeline_DT.fit(X_train, y_train)
+yhat_DT = pipeline_DT.predict(X_test)
+```
+
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_DT.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_DT.predict(X_test), average='binary', pos_label='NO'))
+```
+
+# Majority Voting Ensemble  
+Majority voting ensemble has been designed with following weights:  
+NB: -1  
+MLP: 3  
+GB: 2  
+DT: 0  
+RF: 4
+
+```{python include=FALSE}
+MajorityVoteClassifier = VotingClassifier(estimators=[
+        ('NB', pipeline_NB), ('MLP', pipeline_MLP), ('GB', pipeline_GB), ('DT', pipeline_DT), ('rf', pipeline_RF)], voting='hard', weights=[-1,3,2,0,4])
+MajorityVoteClassifier = MajorityVoteClassifier.fit(X_train, y_train)
+pred_MajorityVoteClassifier = MajorityVoteClassifier.predict(X_test)
+```
+
+## Performance Metrics 
+
+
+Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. We received following results for our majority vote ensemble:  
+
+Accuracy = 0.6229070041663392  
+F1 Score = 0.6928937259923176
+
+
+```{python echo=FALSE}
+print("Accuracy: ", accuracy_score(y_test, pred_MajorityVoteClassifier, normalize=True))
+print("f1 score: ", f1_score(y_test, pred_MajorityVoteClassifier, average='binary', pos_label='NO'))
 ```
 
