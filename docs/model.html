@@ -410,40 +410,22 @@ div.tocify {
 <p>Now we know that Machine learning algorithms are described as learning a target function (f) that best maps input variables (X) to an output variable (Y).</p>
 <p>Y = f(X) This is a general learning task where we would like to make predictions in the future (Y) given new examples of input variables (X).</p>
 <p>Here we have done so.</p>
-<pre><code>## [1mX[0m</code></pre>
-<pre><code>##               cast  gender age group  ...  glyburide-metformin  change  Med
-## 0        Caucasian  Female    [0-10)  ...                   No      No   No
-## 1        Caucasian  Female   [10-20)  ...                   No      Ch  Yes
-## 2  AfricanAmerican  Female   [20-30)  ...                   No      No  Yes
-## 3        Caucasian    Male   [30-40)  ...                   No      Ch  Yes
-## 4        Caucasian    Male   [40-50)  ...                   No      Ch  Yes
-## 
-## [5 rows x 20 columns]</code></pre>
-<pre><code>## 
-## [1my[0m</code></pre>
-<pre><code>## 0     NO
-## 1    YES
-## 2     NO
-## 3     NO
-## 4     NO
-## Name: label, dtype: category
-## Categories (2, object): [&#39;NO&#39;, &#39;YES&#39;]</code></pre>
-<div id="scaling" class="section level2">
-<h2>Scaling</h2>
+<div id="scaling" class="section level1">
+<h1>Scaling</h1>
 <p>We have used a standard scalar on our data or to be more precise on our numerical columns to scale them down so it’s easier to interpret and handle.</p>
 <ul>
 <li>StandardScalar()</li>
 </ul>
 </div>
-<div id="encoding" class="section level2">
-<h2>Encoding</h2>
+<div id="encoding" class="section level1">
+<h1>Encoding</h1>
 <p>We have also used sklearn’s OneHotEncoder for the encoding of our categorical variables. We have also put remainder=‘passthrough’ so that it lets other numerical columns passthrough.</p>
 </div>
-<div id="model-development" class="section level2">
-<h2>Model Development</h2>
+<div id="model-development" class="section level1">
+<h1>Model Development</h1>
 <p>From here we have started developing and implementing the machine learning models.</p>
-<div id="multilayer-perceptron" class="section level3">
-<h3>Multilayer Perceptron</h3>
+<div id="multilayer-perceptron" class="section level2">
+<h2>Multilayer Perceptron</h2>
 <p>The first algorithm that we have used is the Multilayer Prceptron, with it default values except for the layers, which is a neural net and what makes this different is that a Multilayer Perceptron, as clear from the name, has many multiple hidden layers that are used to train and then predict.</p>
 <p>After our Multilayer Perceptron model is built we pass it through a pipeline from the sklearn library. The pipeline is pretty standard in each model i.e it first transforms our categorical variables and scales our numerical variables then it goes through the model that is built.</p>
 <p>After the pipeline we fit our X_train and y_train and then print the accuracy and the f1 score.</p>
@@ -451,16 +433,16 @@ div.tocify {
 <pre><code>## Accuracy:  0.6252260042449493</code></pre>
 <pre><code>## f1 score:  0.6742287061396016</code></pre>
 </div>
-<div id="gradient-boost-model" class="section level3">
-<h3>Gradient Boost Model</h3>
+<div id="gradient-boost-model" class="section level2">
+<h2>Gradient Boost Model</h2>
 <p>A Gradient Booster machine learning model boosts, as clear from the name, our training on the area where there are more errors i.e. it assigns a more weighted model to that area and works as normal with the rest i.e. it minimizes the overall prediction error.</p>
 <p>Here we have applied the model with default values and then passed it through a pipeline with the same specifications as above and then we fit it to our X_train and y_train and then display the accuracy and f1 score we get from it.</p>
 <p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.626837512774153</code></pre>
 <pre><code>## f1 score:  0.6858787718369508</code></pre>
 </div>
-<div id="gaussian-naïve-bayes-model" class="section level3">
-<h3>Gaussian Naïve Bayes Model</h3>
+<div id="gaussian-naïve-bayes-model" class="section level2">
+<h2>Gaussian Naïve Bayes Model</h2>
 <p>We have applied the Gaussian Naive Bayes technique here with defaults and then passed it through the pipeline with the same specifications that it transforms the numeric data and then encodes using OneHotEncoder, the categorical variables and goes through he model that was built and then fits our X_train and y_train.</p>
 <p>After this we display the accuracy and the f1 score we get.</p>
 <p>We see that the Gaussian Naive Bayes model is not that accurate and give us accurate rate only 46% and f1 score of 4% but I have still included this because this is going to come in handy later in Majority Voting which we’ll see in a bit.</p>
@@ -468,20 +450,20 @@ div.tocify {
 <pre><code>## Accuracy:  0.46725886329691063</code></pre>
 <pre><code>## f1 score:  0.04589610023933549</code></pre>
 </div>
-<div id="decision-tree-classifier" class="section level3">
-<h3>Decision Tree Classifier</h3>
+<div id="decision-tree-classifier" class="section level2">
+<h2>Decision Tree Classifier</h2>
 <p>Now we have applied a Decision Tree model and then it goes through the same pipeline as all the others and then after this we fit our X_train and y_train and then display the accuracy and f1 score we get.</p>
 <p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.5485417813065011</code></pre>
 <pre><code>## f1 score:  0.5787736541000441</code></pre>
 </div>
-<div id="random-forest-classifier" class="section level3">
-<h3>Random Forest Classifier</h3>
+<div id="random-forest-classifier" class="section level2">
+<h2>Random Forest Classifier</h2>
 <p>We have applied this sophisticated Random Forest Classifier and then passed it through the pipeline with the same specifications as above. After the pipeline is done we fit our X_train and y_train and then display the accuracy and f1 score.</p>
 <p>Now the reason why we have applied both Decision Tree and Random Forest Classifier is that each node in the decision tree works on a random subset of features to calculate the output. The random forest on the other hand, then combines the output of individual decision trees to generate the final output. The Random Forest Algorithm combines the output of multiple (randomly created) Decision Trees to generate the final output.</p>
 <p>This is the accuracy and f1 score we get:</p>
-<pre><code>## Accuracy:  0.6056913764641144</code></pre>
-<pre><code>## f1 score:  0.6524149400595939</code></pre>
+<pre><code>## Accuracy:  0.6062416476692084</code></pre>
+<pre><code>## f1 score:  0.653260418108819</code></pre>
 </div>
 </div>
 <div id="majority-voting-ensemble" class="section level1">
@@ -501,8 +483,8 @@ div.tocify {
 <h2>Final Performance Metrics</h2>
 <p>Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes.</p>
 <p>We received following results from our majority vote ensemble:</p>
-<pre><code>## Accuracy:  0.6229463092524172</code></pre>
-<pre><code>## f1 score:  0.6926994906621392</code></pre>
+<pre><code>## Accuracy:  0.6194874616775411</code></pre>
+<pre><code>## f1 score:  0.6900195318753802</code></pre>
 </div>
 </div>
 
