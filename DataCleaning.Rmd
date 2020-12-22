@@ -71,6 +71,10 @@ Here we are deleting the columns that are unnecessary, useless or those that hav
 Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs.
 
 These are the deleted columns: 
+
+  * ['id', 'weight', 'discharge_disposition_id', 'admission_source_id', 'patient_no', 'admission_typeid','payer_code', 'medical_specialty',   'examide', 'citoglipton', 'repaglinide', 'nateglinide', 'chlorpropamide', 'acetohexamide', 'tolbutamide', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'glyburide', 'glipizide', 'glimepiride-pioglitazone', 'metformin', 'metformin-pioglitazone', 'metformin-rosiglitazone', 'glipizide-metformin','diag_1', 'diag_2', 'diag_3']
+  
+These are the columns left:
 ```{python}
 #Deleting useless columns
 cols_to_delete = ['id', 'weight', 'discharge_disposition_id', 'admission_source_id', 'patient_no', 'admission_typeid','payer_code', 'medical_specialty', 'examide', 'citoglipton', 'repaglinide', 'nateglinide', 'chlorpropamide', 'acetohexamide', 'tolbutamide', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'glyburide', 'glipizide', 'glimepiride-pioglitazone', 'metformin', 'metformin-pioglitazone', 'metformin-rosiglitazone', 'glipizide-metformin','diag_1', 'diag_2', 'diag_3']
@@ -90,9 +94,9 @@ After the cleaning phase we see that we are now down to 21 columns and the data 
 
 
 ## Labels modified
-In the original data set the "Label" column has three categories i.e. '<5', '>30' and 'NO'
+In the original data set the "Label" column has three categories i.e. '>5', '<30' and 'NO'
 
-We have lumped the factors '<5' and '>30' in a new category names 'YES'.
+We have lumped the factors '>5' and '<30' in a new category names 'YES'.
 
 So now the "Label" column has two categories i.e. 'YES' and 'NO'
 ```{python}

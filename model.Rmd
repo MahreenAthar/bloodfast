@@ -3,6 +3,7 @@ title: "Model"
 output: html_document
 ---
 
+In this section we have fitted several different models to our data as you can see in the contents on our left. These models have been picked after implementing many models and these are the ones that showed the most accuracy.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
@@ -67,16 +68,33 @@ bp = bp.iloc[:,0:]
 bp.info()
 ```
 
+Now we know that Machine learning algorithms are described as learning a target function (f) that best maps input variables (X) to an output variable (Y). 
+
+Y = f(X) This is a general learning task where we would like to make predictions in the future (Y) given new examples of input variables (X).
+
+Here we have done so.
+
 ```{python include=FALSE}
 X = bp.iloc[:,0:-1]
 y = bp.iloc[:,-1]
+```
+
+
+```{python include=FALSE}
 print("\033[1m" + "X" + "\033[0m")
 print(X.head())
 print("\n" + "\033[1m" + "y" + "\033[0m")
 print(y.head())
 ```
 
-# Encoding  
+# Scaling
+We have used a standard scalar on our data or to be more precise on our numerical columns to scale them down so it's easier to interpret and handle.
+          
+  * StandardScalar()
+ 
+# Encoding
+We have also used sklearn's OneHotEncoder for the encoding of our categorical variables. We have also put remainder='passthrough' so that it lets other numerical columns passthrough.
+
 
 ```{python include=FALSE}
 scaler = StandardScaler()
@@ -86,18 +104,17 @@ transformer = ColumnTransformer(transformers=[('cat', OneHotEncoder(), [0, 1,2,1
 
 # Model Development  
 
+From here we have started developing and implementing the machine learning models.
+
 ## Multilayer Perceptron  
 
-Following Multilayer Perceptron Neural Net has been implemented:
+The first algorithm that we have used is the Multilayer Prceptron, with it default values except for the layers, which is a neural net and what makes this different is that a Multilayer Perceptron, as clear from the name, has many multiple hidden layers that are used to train and then predict.
 
-Pipeline(steps=[('t', ColumnTransformer(remainder='passthrough', transformers=[('cat', OneHotEncoder(),
-                                                  [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])),   
-                ('scl', StandardScaler()),  
-                ('m',  MLPClassifier(hidden_layer_sizes=(12, 1), max_iter=300, random_state=1))])  
+After our Multilayer Perceptron model is built we pass it through a pipeline from the sklearn library. The pipeline is pretty standard in each model i.e it first transforms our categorical variables and scales our numerical variables then it goes through the model that is built.
 
-MLP Accuracy = 0.6252260042449493  
+After the pipeline we fit our X_train and y_train and then print the accuracy and the f1 score.  
 
-MLP F1 Score = 0.6742287061396016
+This is the accuracy and f1 score we get:
 
 ```{python include=FALSE}
 model_MLP = MLPClassifier(hidden_layer_sizes=(12,1), activation='relu', solver='adam',random_state=1, max_iter=300)
@@ -110,18 +127,13 @@ print("Accuracy: ", pipeline_MLP.score(X_test, y_test))
 print("f1 score: ", f1_score(y_test, pipeline_MLP.predict(X_test), average='binary', pos_label='NO'))
 ```
 
-## XGBoost Model  
-Following Extreme Gradient Boosting model has been implemented:  
-Pipeline(steps=[('t',
-                 ColumnTransformer(remainder='passthrough',
-                                   transformers=[('cat', OneHotEncoder(),
-                                                  [0, 1, 2, 11, 12, 13, 14, 15,
-                                                   16, 17, 18, 19])])),
-                ('scl', StandardScaler()),  
-                ('m', GradientBoostingClassifier(random_state=0))])  
-                
-GB Accuracy = 0.626837512774153  
-GB F1 Score = 0.6858787718369508  
+## Gradient Boost Model  
+
+A Gradient Booster machine learning model boosts, as clear from the name, our training on the area where there are more errors i.e. it assigns a more weighted model to that area and works as normal with the rest i.e. it minimizes the overall prediction error.
+
+Here we have applied the model with default values and then passed it through a pipeline with the same specifications as above and then we fit it to our X_train and y_train and then display the accuracy and f1 score we get from it.
+
+This is the accuracy and f1 score we get:
 
 ```{python include=FALSE}
 scaler = StandardScaler()
@@ -136,18 +148,15 @@ print("Accuracy: ", pipeline_GB.score(X_test, y_test))
 print("f1 score: ", f1_score(y_test, pipeline_GB.predict(X_test), average='binary', pos_label='NO'))
 ```
 
-## Naive Baye's Model  
-Following Naive Bay's model has been implemented:  
+## Gaussian Naïve Bayes Model
+ 
+We have applied the Gaussian Naive Bayes technique here with defaults and then passed it through the pipeline with the same specifications that it transforms the numeric data and then encodes using OneHotEncoder, the categorical variables and goes through he model that was built and then fits our X_train and y_train.
 
-Pipeline(steps=[('t',
-                 ColumnTransformer(remainder='passthrough',
-                                   transformers=[('cat', OneHotEncoder(),
-                                                  [0, 1, 2, 11, 12, 13, 14, 15,
-                                                   16, 17, 18, 19])])),
-                ('scl', StandardScaler()), ('m', GaussianNB())])  
-                
-NB Accuracy = 0.46725886329691063  
-NB F1 Score = 0.04589610023933549  
+After this we display the accuracy and the f1 score we get.
+
+We see that the Gaussian Naive Bayes model is not that accurate and give us accurate rate only 46% and f1 score of 4% but I have still included this because this is going to come in handy later in Majority Voting which we'll see in a bit.
+
+This is the accuracy and f1 score we get:
 
 ```{python include=FALSE}
 model_NB = GaussianNB()
@@ -160,46 +169,11 @@ print("Accuracy: ", pipeline_NB.score(X_test, y_test))
 print("f1 score: ", f1_score(y_test, pipeline_NB.predict(X_test), average='binary', pos_label='NO'))
 ```
 
-## Random Forest Model  
-Random Forest model has been implemented with following specifications:  
+## Decision Tree Classifier
 
-Pipeline(steps=[('t',
-                 ColumnTransformer(remainder='passthrough',
-                                   transformers=[('cat', OneHotEncoder(),
-                                                  [0, 1, 2, 11, 12, 13, 14, 15,
-                                                   16, 17, 18, 19])])),
-                ('scl', StandardScaler()), ('m', RandomForestClassifier())])  
-                
-RF Accuracy = 0.6085213426617404  
+Now we have applied a Decision Tree model and then it goes through the same pipeline as all the others and then after this we fit our X_train and y_train and then display the accuracy and f1 score we get.
 
-RF F1 Score = 0.6537097559279604  
-
-```{python include=FALSE}
-model_RF = RandomForestClassifier()
-pipeline_RF = Pipeline(steps=[('t', transformer), ('scl', scaler), ('m',model_RF)])
-pipeline_RF.fit(X_train, y_train)
-yhat_RF = pipeline_RF.predict(X_test)
-```
-
-```{python echo=FALSE}
-print("Accuracy: ", pipeline_RF.score(X_test, y_test))
-print("f1 score: ", f1_score(y_test, pipeline_RF.predict(X_test), average='binary', pos_label='NO'))
-```
-
-## Decision Tree Model  
-Decision Tree model with following specifications has been implemented :  
-
-Pipeline(steps=[('t',
-                 ColumnTransformer(remainder='passthrough',
-                                   transformers=[('cat', OneHotEncoder(),
-                                                  [0, 1, 2, 11, 12, 13, 14, 15,
-                                                   16, 17, 18, 19])])),
-                ('scl', StandardScaler()),
-                ('m', DecisionTreeClassifier(random_state=0))])  
-                
-DT Accuracy = 0.5485417813065011  
-
-DT F1 Score = 0.5787736541000441  
+This is the accuracy and f1 score we get:
 
 ```{python include=FALSE}
 model_DT = DecisionTreeClassifier(random_state=0)
@@ -214,13 +188,45 @@ print("Accuracy: ", pipeline_DT.score(X_test, y_test))
 print("f1 score: ", f1_score(y_test, pipeline_DT.predict(X_test), average='binary', pos_label='NO'))
 ```
 
-# Majority Voting Ensemble  
-Majority voting ensemble has been designed with following weights:  
-NB: -1  
-MLP: 3  
-GB: 2  
-DT: 0  
-RF: 4
+## Random Forest Classifier
+
+We have applied this sophisticated Random Forest Classifier and then passed it through the pipeline with the same specifications as above. After the pipeline is done we fit our X_train and y_train and then display the accuracy and f1 score.
+
+Now the reason why we have applied both Decision Tree and Random Forest Classifier is that each node in the decision tree works on a random subset of features to calculate the output. The random forest on the other hand, then combines the output of individual decision trees to generate the final output. The Random Forest Algorithm combines the output of multiple (randomly created) Decision Trees to generate the final output.
+
+This is the accuracy and f1 score we get:
+
+```{python include=FALSE}
+model_RF = RandomForestClassifier()
+pipeline_RF = Pipeline(steps=[('t', transformer), ('scl', scaler), ('m',model_RF)])
+pipeline_RF.fit(X_train, y_train)
+yhat_RF = pipeline_RF.predict(X_test)
+```
+
+```{python echo=FALSE}
+print("Accuracy: ", pipeline_RF.score(X_test, y_test))
+print("f1 score: ", f1_score(y_test, pipeline_RF.predict(X_test), average='binary', pos_label='NO'))
+```
+
+# Majority Voting Ensemble
+
+Now at last we have applied a Majority Vote Ensemble.
+
+A Majority Vote Ensemble basically is an ensemble of classifiers which is a set of classifiers whose individual decisions are combined in some way (typically by weighted or unweighted voting) to classify new examples.
+
+In our case we have assigned weights as follows:
+
+   * Naïve Bayes(NB): -1
+  
+   * Multilayer Perceptron(MLP): 3
+
+   * Gradient Booster(GB): 2
+
+   * Desicion Tree(DT): 0
+
+   * Random Forest(RF): 4
+   
+Now the reason we have assigned a negative weight to Naïve Bayes model is because as we saw earlier the Naïve Bayes model gives bad performance measures so we are basically here telling this model to do exactly the opposite of what Naïve Bayes model does. Since the way it works gives bad performance measures we use it to our advantage.
 
 ```{python include=FALSE}
 MajorityVoteClassifier = VotingClassifier(estimators=[
@@ -229,14 +235,11 @@ MajorityVoteClassifier = MajorityVoteClassifier.fit(X_train, y_train)
 pred_MajorityVoteClassifier = MajorityVoteClassifier.predict(X_test)
 ```
 
-## Performance Metrics 
+## Final Performance Metrics 
 
+Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. 
 
-Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. We received following results for our majority vote ensemble:  
-
-Accuracy = 0.6229070041663392  
-F1 Score = 0.6928937259923176
-
+We received following results from our majority vote ensemble:  
 
 ```{python echo=FALSE}
 print("Accuracy: ", accuracy_score(y_test, pred_MajorityVoteClassifier, normalize=True))

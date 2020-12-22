@@ -1,7 +1,7 @@
 name: "BP-website"
 output_dir: docs
 navbar:
-  title: "Heart Attack Prediction"
+  title: "BloodFast"
   left:
     - text: "Statement"
       href: statement.html
@@ -20,7 +20,7 @@ navbar:
     href: https://www.linkedin.com/in/mahreen-athar-7666ma/
 output:
   html_document:
-    theme: cosmo
+    theme: united
     highlight: textmate
     toc: yes
     toc_float:

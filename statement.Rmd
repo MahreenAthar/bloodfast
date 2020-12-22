@@ -12,9 +12,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Problem Statement
 
-You have to perform a classification on provided dataset of Heart Attack prediction.
+You have to perform a classification on provided dataset.
 
-For that prediction, first of all you have to preprocess dataset and convert it into appropriate numeric form. Then you have to perform any Machine Learning model for the prediction of Label. 
+For the prediction, first of all you have to preprocess dataset and convert it into appropriate numeric form. Then you have to perform any Machine Learning model for the prediction of Label. 
 
 ## Desired Outcomes
 1) Preprocessing

@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -362,7 +362,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Heart Attack Prediction</a>
+      <a class="navbar-brand" href="index.html">BloodFast</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -406,75 +406,103 @@ div.tocify {
 </div>
 
 
-<div id="encoding" class="section level1">
-<h1>Encoding</h1>
+<p>In this section we have fitted several different models to our data as you can see in the contents on our left. These models have been picked after implementing many models and these are the ones that showed the most accuracy.</p>
+<p>Now we know that Machine learning algorithms are described as learning a target function (f) that best maps input variables (X) to an output variable (Y).</p>
+<p>Y = f(X) This is a general learning task where we would like to make predictions in the future (Y) given new examples of input variables (X).</p>
+<p>Here we have done so.</p>
+<pre><code>## [1mX[0m</code></pre>
+<pre><code>##               cast  gender age group  ...  glyburide-metformin  change  Med
+## 0        Caucasian  Female    [0-10)  ...                   No      No   No
+## 1        Caucasian  Female   [10-20)  ...                   No      Ch  Yes
+## 2  AfricanAmerican  Female   [20-30)  ...                   No      No  Yes
+## 3        Caucasian    Male   [30-40)  ...                   No      Ch  Yes
+## 4        Caucasian    Male   [40-50)  ...                   No      Ch  Yes
+## 
+## [5 rows x 20 columns]</code></pre>
+<pre><code>## 
+## [1my[0m</code></pre>
+<pre><code>## 0     NO
+## 1    YES
+## 2     NO
+## 3     NO
+## 4     NO
+## Name: label, dtype: category
+## Categories (2, object): [&#39;NO&#39;, &#39;YES&#39;]</code></pre>
+<div id="scaling" class="section level2">
+<h2>Scaling</h2>
+<p>We have used a standard scalar on our data or to be more precise on our numerical columns to scale them down so it’s easier to interpret and handle.</p>
+<ul>
+<li>StandardScalar()</li>
+</ul>
 </div>
-<div id="model-development" class="section level1">
-<h1>Model Development</h1>
-<div id="multilayer-perceptron" class="section level2">
-<h2>Multilayer Perceptron</h2>
-<p>Following Multilayer Perceptron Neural Net has been implemented:</p>
-<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])),<br />
-(‘scl’, StandardScaler()),<br />
-(‘m’, MLPClassifier(hidden_layer_sizes=(12, 1), max_iter=300, random_state=1))])</p>
-<p>MLP Accuracy = 0.6252260042449493</p>
-<p>MLP F1 Score = 0.6742287061396016</p>
+<div id="encoding" class="section level2">
+<h2>Encoding</h2>
+<p>We have also used sklearn’s OneHotEncoder for the encoding of our categorical variables. We have also put remainder=‘passthrough’ so that it lets other numerical columns passthrough.</p>
+</div>
+<div id="model-development" class="section level2">
+<h2>Model Development</h2>
+<p>From here we have started developing and implementing the machine learning models.</p>
+<div id="multilayer-perceptron" class="section level3">
+<h3>Multilayer Perceptron</h3>
+<p>The first algorithm that we have used is the Multilayer Prceptron, with it default values except for the layers, which is a neural net and what makes this different is that a Multilayer Perceptron, as clear from the name, has many multiple hidden layers that are used to train and then predict.</p>
+<p>After our Multilayer Perceptron model is built we pass it through a pipeline from the sklearn library. The pipeline is pretty standard in each model i.e it first transforms our categorical variables and scales our numerical variables then it goes through the model that is built.</p>
+<p>After the pipeline we fit our X_train and y_train and then print the accuracy and the f1 score.</p>
+<p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.6252260042449493</code></pre>
 <pre><code>## f1 score:  0.6742287061396016</code></pre>
 </div>
-<div id="xgboost-model" class="section level2">
-<h2>XGBoost Model</h2>
-<p>Following Extreme Gradient Boosting model has been implemented:<br />
-Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()),<br />
-(‘m’, GradientBoostingClassifier(random_state=0))])</p>
-<p>GB Accuracy = 0.626837512774153<br />
-GB F1 Score = 0.6858787718369508</p>
+<div id="gradient-boost-model" class="section level3">
+<h3>Gradient Boost Model</h3>
+<p>A Gradient Booster machine learning model boosts, as clear from the name, our training on the area where there are more errors i.e. it assigns a more weighted model to that area and works as normal with the rest i.e. it minimizes the overall prediction error.</p>
+<p>Here we have applied the model with default values and then passed it through a pipeline with the same specifications as above and then we fit it to our X_train and y_train and then display the accuracy and f1 score we get from it.</p>
+<p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.626837512774153</code></pre>
 <pre><code>## f1 score:  0.6858787718369508</code></pre>
 </div>
-<div id="naive-bayes-model" class="section level2">
-<h2>Naive Baye’s Model</h2>
-<p>Following Naive Bay’s model has been implemented:</p>
-<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, GaussianNB())])</p>
-<p>NB Accuracy = 0.46725886329691063<br />
-NB F1 Score = 0.04589610023933549</p>
+<div id="gaussian-naïve-bayes-model" class="section level3">
+<h3>Gaussian Naïve Bayes Model</h3>
+<p>We have applied the Gaussian Naive Bayes technique here with defaults and then passed it through the pipeline with the same specifications that it transforms the numeric data and then encodes using OneHotEncoder, the categorical variables and goes through he model that was built and then fits our X_train and y_train.</p>
+<p>After this we display the accuracy and the f1 score we get.</p>
+<p>We see that the Gaussian Naive Bayes model is not that accurate and give us accurate rate only 46% and f1 score of 4% but I have still included this because this is going to come in handy later in Majority Voting which we’ll see in a bit.</p>
+<p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.46725886329691063</code></pre>
 <pre><code>## f1 score:  0.04589610023933549</code></pre>
 </div>
-<div id="random-forest-model" class="section level2">
-<h2>Random Forest Model</h2>
-<p>Random Forest model has been implemented with following specifications:</p>
-<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, RandomForestClassifier())])</p>
-<p>RF Accuracy = 0.6085213426617404</p>
-<p>RF F1 Score = 0.6537097559279604</p>
-<pre><code>## Accuracy:  0.6055734612058801</code></pre>
-<pre><code>## f1 score:  0.6517680535794843</code></pre>
-</div>
-<div id="decision-tree-model" class="section level2">
-<h2>Decision Tree Model</h2>
-<p>Decision Tree model with following specifications has been implemented :</p>
-<p>Pipeline(steps=[(‘t’, ColumnTransformer(remainder=‘passthrough’, transformers=[(‘cat’, OneHotEncoder(), [0, 1, 2, 11, 12, 13, 14, 15, 16, 17, 18, 19])])), (‘scl’, StandardScaler()), (‘m’, DecisionTreeClassifier(random_state=0))])</p>
-<p>DT Accuracy = 0.5485417813065011</p>
-<p>DT F1 Score = 0.5787736541000441</p>
+<div id="decision-tree-classifier" class="section level3">
+<h3>Decision Tree Classifier</h3>
+<p>Now we have applied a Decision Tree model and then it goes through the same pipeline as all the others and then after this we fit our X_train and y_train and then display the accuracy and f1 score we get.</p>
+<p>This is the accuracy and f1 score we get:</p>
 <pre><code>## Accuracy:  0.5485417813065011</code></pre>
 <pre><code>## f1 score:  0.5787736541000441</code></pre>
+</div>
+<div id="random-forest-classifier" class="section level3">
+<h3>Random Forest Classifier</h3>
+<p>We have applied this sophisticated Random Forest Classifier and then passed it through the pipeline with the same specifications as above. After the pipeline is done we fit our X_train and y_train and then display the accuracy and f1 score.</p>
+<p>Now the reason why we have applied both Decision Tree and Random Forest Classifier is that each node in the decision tree works on a random subset of features to calculate the output. The random forest on the other hand, then combines the output of individual decision trees to generate the final output. The Random Forest Algorithm combines the output of multiple (randomly created) Decision Trees to generate the final output.</p>
+<p>This is the accuracy and f1 score we get:</p>
+<pre><code>## Accuracy:  0.6056913764641144</code></pre>
+<pre><code>## f1 score:  0.6524149400595939</code></pre>
 </div>
 </div>
 <div id="majority-voting-ensemble" class="section level1">
 <h1>Majority Voting Ensemble</h1>
-<p>Majority voting ensemble has been designed with following weights:<br />
-NB: -1<br />
-MLP: 3<br />
-GB: 2<br />
-DT: 0<br />
-RF: 4</p>
-<div id="performance-metrics" class="section level2">
-<h2>Performance Metrics</h2>
-<p>Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes. We received following results for our majority vote ensemble:</p>
-<p>Accuracy = 0.6229070041663392<br />
-F1 Score = 0.6928937259923176</p>
-<pre><code>## Accuracy:  0.6207059193459634</code></pre>
-<pre><code>## f1 score:  0.6917917598211433</code></pre>
+<p>Now at last we have applied a Majority Vote Ensemble.</p>
+<p>A Majority Vote Ensemble basically is an ensemble of classifiers which is a set of classifiers whose individual decisions are combined in some way (typically by weighted or unweighted voting) to classify new examples.</p>
+<p>In our case we have assigned weights as follows:</p>
+<ul>
+<li><p>Naïve Bayes(NB): -1</p></li>
+<li><p>Multilayer Perceptron(MLP): 3</p></li>
+<li><p>Gradient Booster(GB): 2</p></li>
+<li><p>Desicion Tree(DT): 0</p></li>
+<li><p>Random Forest(RF): 4</p></li>
+</ul>
+<p>Now the reason we have assigned a negative weight to Naïve Bayes model is because as we saw earlier the Naïve Bayes model gives bad performance measures so we are basically here telling this model to do exactly the opposite of what Naïve Bayes model does. Since the way it works gives bad performance measures we use it to our advantage.</p>
+<div id="final-performance-metrics" class="section level2">
+<h2>Final Performance Metrics</h2>
+<p>Accuracy is used when the True Positives and True negatives are more important while F1-score is used when the False Negatives and False Positives are crucial. Accuracy can be used when the class distribution is similar while F1-score is a better metric when there are imbalanced classes.</p>
+<p>We received following results from our majority vote ensemble:</p>
+<pre><code>## Accuracy:  0.6229463092524172</code></pre>
+<pre><code>## f1 score:  0.6926994906621392</code></pre>
 </div>
 </div>
 

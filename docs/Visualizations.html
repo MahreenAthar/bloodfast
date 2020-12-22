@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -363,7 +363,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Heart Attack Prediction</a>
+      <a class="navbar-brand" href="index.html">BloodFast</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -414,6 +414,9 @@ div.tocify {
 <div id="correlation-matrixfinal" class="section level2">
 <h2>Correlation matrix(Final)</h2>
 <p>This is the correlation matrix of the final cleaned data set, displayed using a heatmap. <img src="Visualizations_files/figure-html/unnamed-chunk-5-1.png" width="1152" /></p>
+<p>
+<strong>we can see that most of the columns don’t have correlation near to 1. This means that all the columns in our original data set and final dataset are mutually exclusive.</strong>
+</p>
 </div>
 <div id="visualizationsfactor-vs.-target-variables" class="section level2">
 <h2>Visualizations(Factor vs. Target Variables)</h2>
@@ -428,12 +431,16 @@ div.tocify {
 <p>These are the boxplots for the numerical columns of our Data.</p>
 <p>We have 8 numerical columns:</p>
 <pre><code>## [&#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;, &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;, &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;]</code></pre>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-10-1.png" width="50%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-11-1.png" width="50%" /></p>
-</div>
-<div id="proportionality-comparison" class="section level3">
-<h3>Proportionality Comparison</h3>
-<p>These are the proportionality comparisons between different features of the data.</p>
+<p>Below plots show outliers as they are not included in the box of other observation i.e no where near the quartiles.</p>
+<ul>
+<li><p>The column ‘time_in_hospital’ has two outliers between the values 12.5-15.0</p></li>
+<li><p>The column ‘num_lab_procedures’ has outliers between the values 100-125</p></li>
+<li><p>The column ‘num_procedures’ has one outlier at value 6</p></li>
+<li><p>The column ‘num_medications’ has outliers between the values 70-80</p></li>
+<li><p>The columns ‘number_outpatient’ and ‘number_emergency’ have many outliers as shown</p></li>
+<li><p>The column ‘number_inpatient’ too has many outliers but it is a very important variable in the dataset which we’ll see in model building section</p></li>
+<li><p>The column ‘number_diagnoses’ has four outliers, one before the value 2.5 and other three after 12.5 <img src="Visualizations_files/figure-html/unnamed-chunk-10-1.png" width="1920" /> <img src="Visualizations_files/figure-html/unnamed-chunk-11-1.png" width="1920" /></p></li>
+</ul>
 </div>
 <div id="medication" class="section level3">
 <h3>Medication</h3>
@@ -447,20 +454,21 @@ div.tocify {
 <li><p>“steady” if the dosage did not change, and</p></li>
 <li><p>“no” if the drug was not prescribed</p></li>
 </ul>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-13-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-13-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-14-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-14-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-15-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-15-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-16-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-16-2.png" width="45%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-13-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-13-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-14-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-14-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-15-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-15-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-16-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-16-2.png" width="50%" /></p>
 <div id="deleted" class="section level4">
 <h4>Deleted</h4>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-17-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-17-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-18-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-18-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-19-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-19-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-20-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-20-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-21-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-21-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-22-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-22-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-23-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-23-2.png" width="45%" /></p>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-24-1.png" width="45%" /></p>
+<p>These are the graphs of the medication columns that were deleted. As you can see these columns show no or very little variation in them and are all lumped in one category i.e they stay constant throughout the data so we have no need for these.</p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-17-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-17-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-18-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-18-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-19-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-19-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-20-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-20-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-21-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-21-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-22-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-22-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-23-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-23-2.png" width="50%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-24-1.png" width="50%" /></p>
 <p>Change indicates if there was a change in diabetic medications (either dosage or generic name).</p>
 <p>Values:</p>
 <ul>
@@ -471,7 +479,7 @@ div.tocify {
 <ul>
 <li>“yes” and “no”</li>
 </ul>
-<p><img src="Visualizations_files/figure-html/unnamed-chunk-25-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-25-2.png" width="45%" /></p>
+<p><img src="Visualizations_files/figure-html/unnamed-chunk-25-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-25-2.png" width="50%" /></p>
 </div>
 </div>
 </div>
@@ -483,7 +491,7 @@ div.tocify {
 <li><p>“&lt;30” if the patient was readmitted in less than 30 days, and</p></li>
 <li><p>“No” for no record of readmission.</p></li>
 </ul>
-<p>We have lumped the categories “&gt;5” and “&lt;30” into “YES” in our final data and the “NO” category remains the same. <img src="Visualizations_files/figure-html/unnamed-chunk-26-1.png" width="45%" /><img src="Visualizations_files/figure-html/unnamed-chunk-26-2.png" width="45%" /></p>
+<p>We have lumped the categories “&gt;5” and “&lt;30” into “YES” in our final data and the “NO” category remains the same. <img src="Visualizations_files/figure-html/unnamed-chunk-26-1.png" width="50%" /><img src="Visualizations_files/figure-html/unnamed-chunk-26-2.png" width="50%" /></p>
 </div>
 
 

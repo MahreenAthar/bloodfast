@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -363,7 +363,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Heart Attack Prediction</a>
+      <a class="navbar-brand" href="index.html">BloodFast</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -544,6 +544,10 @@ div.tocify {
 <h2>Deleting unneccesary columns</h2>
 <p>Here we are deleting the columns that are unnecessary, useless or those that have no impact on the data. Reasons for the deletion of some of these columns can be seen in the Visualizations tab with their graphs.</p>
 <p>These are the deleted columns:</p>
+<ul>
+<li>[‘id’, ‘weight’, ‘discharge_disposition_id’, ‘admission_source_id’, ‘patient_no’, ‘admission_typeid’,‘payer_code’, ‘medical_specialty’, ‘examide’, ‘citoglipton’, ‘repaglinide’, ‘nateglinide’, ‘chlorpropamide’, ‘acetohexamide’, ‘tolbutamide’, ‘acarbose’, ‘miglitol’, ‘troglitazone’, ‘tolazamide’, ‘glyburide’, ‘glipizide’, ‘glimepiride-pioglitazone’, ‘metformin’, ‘metformin-pioglitazone’, ‘metformin-rosiglitazone’, ‘glipizide-metformin’,‘diag_1’, ‘diag_2’, ‘diag_3’]</li>
+</ul>
+<p>These are the columns left:</p>
 <pre><code>## Index([&#39;cast&#39;, &#39;gender&#39;, &#39;age group&#39;, &#39;time_in_hospital&#39;, &#39;num_lab_procedures&#39;,
 ##        &#39;num_procedures&#39;, &#39;num_medications&#39;, &#39;number_outpatient&#39;,
 ##        &#39;number_emergency&#39;, &#39;number_inpatient&#39;, &#39;number_diagnoses&#39;,
@@ -587,8 +591,8 @@ div.tocify {
 </div>
 <div id="labels-modified" class="section level2">
 <h2>Labels modified</h2>
-<p>In the original data set the “Label” column has three categories i.e. ‘&lt;5’, ‘&gt;30’ and ‘NO’</p>
-<p>We have lumped the factors ‘&lt;5’ and ‘&gt;30’ in a new category names ‘YES’.</p>
+<p>In the original data set the “Label” column has three categories i.e. ‘&gt;5’, ‘&lt;30’ and ‘NO’</p>
+<p>We have lumped the factors ‘&gt;5’ and ‘&lt;30’ in a new category names ‘YES’.</p>
 <p>So now the “Label” column has two categories i.e. ‘YES’ and ‘NO’</p>
 <pre><code>##               cast  gender age group  ...  change  Med  label
 ## 0        Caucasian  Female    [0-10)  ...      No   No     NO

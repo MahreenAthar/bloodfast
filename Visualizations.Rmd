@@ -31,6 +31,7 @@ fig, ax = plt.subplots(figsize=(15,15))
 sn.heatmap(corrMatrix_org, annot=True, linewidth=0.5, ax=ax)
 plt.show()
 ```
+
 ```{python include=FALSE}
 bp = pd.read_csv("bp.csv", na_values = "?")
 bp['cast'] = bp['cast'].astype('category')
@@ -65,6 +66,11 @@ sn.heatmap(corrMatrix_final, annot=True, linewidth=0.5, ax=ax)
 plt.show()
 ```
 
+
+<p><strong>we can see that most of the columns don't have correlation near to 1. This means that all the columns in our original data set and final dataset are mutually exclusive.</strong></p>
+
+
+
 ```{python include=FALSE}
 # font = {'size'   : 20}
 # 
@@ -78,19 +84,19 @@ Following visualizations help to decide visually about the variation present in 
 * repaglinide, nateglinide, chlorpropamide, acetohexamide, tolbutamide, acarbose, miglitol, troglitazone, tolazamide, glyburide, glipizide, glimepiride.pioglitazone, metformin, metformin.pioglitazone, metformin.rosiglitazone, glipizide-metformin
 
 ```{python fig.show="hold", out.width="50%", echo=FALSE}
-sn.countplot(bp_org['cast'],hue=bp['label'], color='indigo').set_title('Cast')
+sn.countplot(bp_org['cast'],hue=bp['label'], palette='PuRd_r').set_title('Cast')
 plt.show()
 
-sn.countplot(bp_org['gender'],hue=bp['label'], color='coral').set_title('Gender')
+sn.countplot(bp_org['gender'],hue=bp['label'], palette='OrRd').set_title('Gender')
 plt.legend(loc='upper right')
 plt.show()
 ```
 
 ```{python fig.show="hold", out.width="50%", echo=FALSE}
-sn.countplot(bp_org['age group'],hue=bp['label'], palette='Pastel2').set_title('Age Group')
+sn.countplot(bp_org['age group'],hue=bp['label'], palette='Oranges').set_title('Age Group')
 plt.show()
 
-sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='Pastel1').set_title('Number of Procedures')
+sn.countplot(bp_org['num_procedures'],hue=bp['label'], palette='BuPu').set_title('Number of Procedures')
 plt.show()
 ```
 
@@ -107,34 +113,42 @@ print(bpNum)
 ```
 
 
-```{python fig.show="hold", out.width="50%"}
-fig, ax =plt.subplots(nrows=2,ncols=2)  
+Below plots show outliers as they are not included in the box of other observation i.e no where near the quartiles.
+
+   * The column 'time_in_hospital' has two outliers between the values 12.5-15.0
+
+   * The column 'num_lab_procedures' has outliers between the values 100-125
+
+   * The column 'num_procedures' has one outlier at value 6
+
+   * The column 'num_medications' has outliers between the values 70-80
+
+   * The columns 'number_outpatient' and 'number_emergency' have many outliers as shown
+
+   * The column 'number_inpatient' too has many outliers but it is a very important variable in the dataset which we'll see in model building section
+
+   * The column 'number_diagnoses' has four outliers, one before the value 2.5 and other three after 12.5
+```{python}
+fig, ax =plt.subplots(nrows=2,ncols=2, figsize=(20,20))  
 
 sn.boxplot(x = bp['time_in_hospital'], color='RED',ax=ax[0][0])
 sn.boxplot(x = bp['num_lab_procedures'], color="yellow",ax=ax[0][1])
 sn.boxplot(x = bp['num_procedures'], color="purple", ax=ax[1][0])
 sn.boxplot(x = bp['num_medications'], color='green',ax=ax[1][1])
 
-plt.show()
 ```
-
-
-```{python fig.show="hold", out.width="50%"}
-fig, ax =plt.subplots(nrows=2,ncols=2)  
+```{python}
+fig, ax =plt.subplots(nrows=2,ncols=2, figsize=(20,20))
 
 sn.boxplot(x = bp['number_outpatient'], color='salmon',ax=ax[0][0])
 sn.boxplot(x = bp['number_emergency'], color='pink',ax=ax[0][1])
 sn.boxplot(x = bp['number_inpatient'], color='firebrick',ax=ax[1][0])
 sn.boxplot(x = bp['number_diagnoses'], color='blue',ax=ax[1][1])
 
-plt.show()
 ```
 
-### Proportionality Comparison
-
-These are the proportionality comparisons between different features of the data.
-
 ### Medication
+
 There are 24 features for medications.
 
 Generic names: metformin, repaglinide, nateglinide, chlorpropamide, glimepiride, acetohexamide, glipizide, glyburide, tolbutamide, pioglitazone, rosiglitazone, acarbose, miglitol, troglitazone, tolazamide, examide, sitagliptin, insulin, glyburide-metformin, glipizide-metformin, glimepiride-pioglitazone, metformin-rosiglitazone, and metformin-pioglitazone
@@ -156,11 +170,11 @@ Values:
 # font = {'size'   : 20}
 # 
 # plt.rc('font', **font)
-plt.rcParams.update({'font.size': 24})
+plt.rcParams.update({'font.size': 22})
 ```
 
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['max_glu_serum'],hue=bp['label'], color='deeppink').set_title('Maximum Blood Sugar Level (max_glu_serum)')
 plt.show()
 
@@ -168,27 +182,27 @@ sn.countplot(bp_org['A1Cresult'],hue=bp['label'], color='purple').set_title('Gly
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['metformin'],hue=bp['label'], color='firebrick').set_title('Metformin Level')
 plt.show()
 
-sn.countplot(bp_org['glimepiride'],hue=bp['label'], color='plum').set_title('Glimepiride Dependent')
+sn.countplot(bp_org['glimepiride'],hue=bp['label'], palette="mako").set_title('Glimepiride Dependent')
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
-sn.countplot(bp_org['pioglitazone'],hue=bp['label'], color='thistle').set_title('Pioglitazone Dependent')
+```{python fig.show="hold", out.width="50%", echo=FALSE}
+sn.countplot(bp_org['pioglitazone'],hue=bp['label'], palette="YlOrBr").set_title('Pioglitazone Dependent')
 plt.show()
 
-sn.countplot(bp_org['rosiglitazone'],hue=bp['label'], color='skyblue').set_title('Rosiglitazone Dependent')
+sn.countplot(bp_org['rosiglitazone'],hue=bp['label'], palette="rocket").set_title('Rosiglitazone Dependent')
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
-sn.countplot(bp_org['insulin'],hue=bp['label'], palette='Pastel1').set_title('Insulin Level')
+```{python fig.show="hold", out.width="50%", echo=FALSE}
+sn.countplot(bp_org['insulin'],hue=bp['label'], palette="icefire").set_title('Insulin Level')
 plt.show()
 
-sn.countplot(bp_org['glyburide-metformin'],hue=bp['label'], palette='Set3').set_title('Glyburide-Metformin Dependent')
+sn.countplot(bp_org['glyburide-metformin'],hue=bp['label'], palette='viridis').set_title('Glyburide-Metformin Dependent')
 plt.legend(loc='upper right')
 plt.show()
 ```
@@ -196,7 +210,9 @@ plt.show()
 
 #### Deleted
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+These are the graphs of the medication columns that were deleted. As you can see these columns show no or very little variation in them and are all lumped in one category i.e they stay constant throughout the data so we have no need for these.
+
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['repaglinide'],hue=bp['label'], color='darkorange').set_title('Repaglinide Dependent')
 plt.show()
 
@@ -205,7 +221,7 @@ plt.show()
 ```
 
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['chlorpropamide'],hue=bp['label'], color='darkmagenta').set_title('Chlorpropamide Dependent')
 plt.show()
 
@@ -213,7 +229,7 @@ sn.countplot(bp_org['acetohexamide'],hue=bp['label'], color='yellowgreen').set_t
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['glipizide'],hue=bp['label'], color='indianred').set_title('Glipizide Dependent')
 plt.show()
 
@@ -221,7 +237,7 @@ sn.countplot(bp_org['glyburide'],hue=bp['label'], color='lightsalmon').set_title
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['tolbutamide'],hue=bp['label'], color='lightcoral').set_title('Tolbutamide Dependent')
 plt.show()
 
@@ -229,7 +245,7 @@ sn.countplot(bp_org['acarbose'],hue=bp['label'], color='teal').set_title('Acarbo
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['miglitol'],hue=bp['label'], color='slateblue').set_title('Miglitol Dependent')
 plt.legend(loc='upper right')
 plt.show()
@@ -238,7 +254,7 @@ sn.countplot(bp_org['troglitazone'],hue=bp['label'], color='purple').set_title('
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['tolazamide'],hue=bp['label'], color='y').set_title('Tolazamide Dependent')
 plt.show()
 
@@ -246,7 +262,7 @@ sn.countplot(bp_org['glipizide-metformin'],hue=bp['label'], color='darkcyan').se
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['glimepiride-pioglitazone'],hue=bp['label'], color='darkgoldenrod').set_title('Glimepiride-Pioglitazone Dependent')
 plt.show()
 
@@ -254,7 +270,7 @@ sn.countplot(bp_org['metformin-rosiglitazone'],hue=bp['label'], color='green').s
 plt.show()
 ```
 
-```{python fig.show="hold", out.width="45%", echo=FALSE}
+```{python fig.show="hold", out.width="50%", echo=FALSE}
 sn.countplot(bp_org['metformin-pioglitazone'],hue=bp['label'], color='coral').set_title('Metformin-Pioglitazone Dependent')
 plt.show()
 ```
@@ -273,11 +289,11 @@ Values:
   + “yes” and “no”
   
   
-```{python fig.show="hold", out.width="45%", echo=FALSE}
-sn.countplot(bp_org['change'],hue=bp['label'], palette='Pastel1').set_title('Change')
+```{python fig.show="hold", out.width="50%", echo=FALSE}
+sn.countplot(bp_org['change'],hue=bp['label'], palette='Oranges').set_title('Change')
 plt.show()
 
-sn.countplot(x=bp_org['Med'], hue=bp['label'], color='plum').set_title('Med')
+sn.countplot(x=bp_org['Med'], hue=bp['label'], palette='Reds').set_title('Med')
 plt.show()
 ```
 
@@ -291,11 +307,11 @@ Values:
    + “No” for no record of readmission.
 
 We have lumped the categories ">5" and "<30" into "YES" in our final data and the "NO" category remains the same.
-```{python fig.show="hold", out.width="45%", echo=FALSE}
-sn.countplot(bp_org['label'], palette='Set3').set_title('Column Label from Original Data')
+```{python fig.show="hold", out.width="50%", echo=FALSE}
+sn.countplot(bp_org['label'], palette='PuRd_r').set_title('Column Label from Original Data')
 plt.show()
 
-sn.countplot(bp['label'], palette='Set2').set_title('Column Label from Final Data')
+sn.countplot(bp['label'], palette='mako').set_title('Column Label from Final Data')
 plt.show()
 ```
 

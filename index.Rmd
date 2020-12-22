@@ -9,7 +9,21 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## About the Project
+## Final Project
+<p style="color:black; margin-left:0%; font-family: 50px;">Data Science 301</p>
+<p style="color:black; margin-left:0%; font-family: 35px"><strong>Submitted to: </strong></p>
+<p style="color:black; margin-left:3%; font-family: 35px">Sir Umair Arshad</p>
+
+<p style="color:black; margin-left:0%"><strong>submitted by: </strong></p>
+<p style="color:black; margin-left:3%"><strong>Mahreen Athar</strong></p>
+<p style="color:black; margin-left:3%">ID: 19I-1712</p>
+<p style="color:black; margin-left:3%">BS Data Science</p>
+
+
+
+
+
+## About the Data
 
 The dataset represents 10 years (1999-2008) of clinical care at 130 US hospitals and integrated delivery networks. It includes over 50 features representing patient and hospital outcomes. Information was extracted from the database for encounters that satisfied the following criteria.
 
@@ -24,8 +38,3 @@ The dataset represents 10 years (1999-2008) of clinical care at 130 US hospitals
   + Medications were administered during the encounter.
   
 The data contains such attributes as patient number, race, gender, age, admission type, time in hospital, medical specialty of admitting physician, number of lab test performed, HbA1c test result, diagnosis, number of medication, diabetic medications, number of outpatient, inpatient, and emergency visits in the year before the hospitalization, etc.
-
-
-## About the Author
-
-![Author](/home/mahreen/Documents/bloodfast/pp2.jpg){width=20%}
